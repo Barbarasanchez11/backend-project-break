@@ -1,5 +1,5 @@
 const Product = require('../models/Product')
-const {baseHtml, getNavBar,getNavBarDash, getProductCards, formNewProduct, formEditProduct,deleteProduct} = require('../public/utils/index')
+const {baseHtml, getNavBar, getProductCards, formNewProduct, formEditProduct,deleteProduct} = require('../public/utils/index')
 const path=require('path')
 
 const productController = {
@@ -94,7 +94,7 @@ async createProduct(req,res){
       })
       await createItem.save()//guardamos el prod. en la BBDD
       res.status(201).json(createItem)
-      res.redirect(`/dashboard/products/${product._id}`)
+      
   } 
   catch(error){
     console.error(error)
@@ -119,12 +119,31 @@ async showDashboardById(req,res) {
   }
 },
 
+async updateProduct(req,res){
+  try {
+    
+    const id = req.params.productId;
+    const body = req.body;
+    const products= await Product.findByIdAndUpdate(id, body, { new: true });
+   
+    if(product)
+        res.status(200).json('Producto actualizado correctamente')
+    if (!products) {
+      return res.status(404).send({ message: 'Producto no encontrado' })}
+    res.send(html)
+} catch (error) {
+    console.error(error)
+    res.status(500).json({message : 'Ocurrió un error intentando actualizar el producto'})
+}
+
+},
+
 async showEditProduct(req,res){
   try {
     const productId =req.params.productId 
     
     const products = await Product.findById(productId)
-    const html = formEditProduct(products)
+    const html = baseHtml()+ getNavBar() + formEditProduct(products)
     console.log(html)
     if(!products) {
      return res.status(404).json({message: 'The product with that ID does not exist'})
@@ -140,24 +159,7 @@ async showEditProduct(req,res){
 
 
 
-async updateProduct(req,res){
-  try {
-    
-    const id = req.params.productId;
-    const body = req.body;
-    const products= await Product.findByIdAndUpdate(id, body, { new: true });
-   
-    if(product)
-        res.status(200).json('Product update successfully')
-    if (!products) {
-      return res.status(404).send({ message: 'Product not found' })}
-    res.send(html)
-} catch (error) {
-    console.error(error)
-    res.status(500).json({message : 'An error occurred while updating the product.'})
-}
 
-},
 
 async deleteProduct(req, res) {
   const { confirm } = req.query; 
@@ -183,7 +185,6 @@ async deleteProduct(req, res) {
   }
 }
 }
-
 
 
 

@@ -147,7 +147,7 @@ function formEditProduct(product){
         </div>
         <div>
             <label for="description">Descripción:</label>
-            <textarea id="description" name="description" value=${product.description} required></textarea>
+            <textarea id="description" name="description" ${product.description} required>${product.description}</textarea>
         </div>
         <div>
             <label for="image">Imagen</label>
@@ -192,6 +192,45 @@ function formEditProduct(product){
   `;
   return htmlEdit
 }
+
+const putForm = async (productId) => { 
+  const name = document.getElementById('name').value;
+  const description = document.getElementById('description').value;
+  const image = document.getElementById('image').value;
+  const category = document.getElementById('category').value;
+  const flavour = document.getElementById('flavour').value;
+  const size = document.getElementById('size').value;
+  const price = document.getElementById('price').value;
+  const stock = document.getElementById('stock').value;
+
+  try {
+    const response = await fetch(`/dashboard/${productId}`, { 
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name,
+        description,
+        image,
+        price, // Solo se usa una vez
+        category,
+        flavour,
+        size,
+        stock, // Asegúrate de esto también
+        productId
+      })
+    });
+
+    const data = await response.json();
+    if (data.success) { 
+      window.location.href = '/dashboard'
+    }
+  } catch (error) {
+    window.location.href = `/dashboard/${productId}/edit`
+  }
+};
+
 function deleteProduct() {
   const deleteProduct = `
  <!DOCTYPE html>
