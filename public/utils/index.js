@@ -70,6 +70,22 @@ function getProductCardsByID(products) {
   html += '</div>'; 
   return html;
 }
+
+function getNavBarDash() {
+  return `
+<nav>
+  <ul>
+    <li><a href='/products/Proteinas'>Proteinas</a></li>
+    <li><a href='/products/Vitaminas'>Vitaminas</a></li>
+    <li><a href='/products/Snacks'>Snacks</a></li>
+    <li><a href='/products/NutricionDeportiva'>Nutrición Deportiva</a></li>
+    <li><a href='/products/Otros'>Otros</a></li>
+    <li><a href='/products/login'>Login</a></li>
+    <li><a href='/dashboard/new'>Nuevo Producto</a></li>
+  </ul>
+</nav>
+`;
+}
  
 function formNewProduct(){
   const formNewProduct =  
@@ -240,7 +256,7 @@ function deleteProduct() {
 return deleteProduct
 }
 
-module.exports =  {baseHtml, getNavBar,getProductCardsByID,getProductCards,formNewProduct,formEditProduct,deleteProduct}
+module.exports =  {baseHtml, getNavBar,getProductCardsByID,getNavBarDash,getProductCards,formNewProduct,formEditProduct,deleteProduct}
 /*
 const baseHtml = `
 <!DOCTYPE html>

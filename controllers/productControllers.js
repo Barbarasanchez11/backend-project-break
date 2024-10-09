@@ -1,5 +1,5 @@
 const Product = require('../models/Product')
-const {baseHtml, getNavBar, getProductCards, getProductCardsByID,formNewProduct, formEditProduct,deleteProduct} = require('../public/utils/index')
+const {baseHtml, getNavBar, getProductCards, getProductCardsByID,getNavBarDash,formNewProduct, formEditProduct,deleteProduct} = require('../public/utils/index')
 const path=require('path')
 
 const productController = {
@@ -8,7 +8,7 @@ const productController = {
       const products = await Product.find();
       if(!products) throw new Error('No se encontraron productos')
       const html = baseHtml() + getNavBar() + getProductCards(products); 
-      console.log(products)
+      
       res.send(html);
     } catch (error) {
       console.error(error);
@@ -16,8 +16,6 @@ const productController = {
     }
   },
   
-
-
  async showProductById(req,res){
     
     try{
@@ -71,9 +69,7 @@ async showDashboard(req,res){
           <a href='/dashboard/${product._id}'>Ver</a>
         </div>
       `).join('');
-    const html = baseHtml() + getNavBar()  + productHtml
-    
-    
+    const html = baseHtml() + getNavBarDash()  + productHtml
     res.send(html);
     ; 
     } catch (error) {

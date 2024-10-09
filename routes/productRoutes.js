@@ -19,6 +19,8 @@ router.get('/products/Otros',productController.showProductByCategory)
 // Devuelve el detalle de un producto. OK
 router.get('/products/:_id', productController.showProductById)
 
+
+
 // Devuelve el detalle de un producto en el dashboard. desde ahi puedo crear producto. OK
 router.get('/dashboard/new', productController.showNewProduct)
 
