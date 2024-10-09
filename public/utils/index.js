@@ -127,8 +127,7 @@ function formNewProduct(){
         <button type="submit">Agregar Producto</button>
     </form>
     <a href="/dashboard"> Volver</a>
-    <a href='/dashboard/<%= product._id %>/edit'> Editar </a>
-    <a href='/dashboard/<%= product._id %>/delete'> Borrar producto </a>
+   
 </body>
 </html>
   `;

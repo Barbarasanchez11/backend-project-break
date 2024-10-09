@@ -67,7 +67,7 @@ async showDashboard(req,res){
     const products = await Product.find();
     if(!products) throw new Error('No se encontraron productos')
     const productCards = getProductCards(products);
-    const html = baseHtml() + getNavBarDash() + productCards 
+    const html = baseHtml() + getNavBar() + productCards 
     
     
     res.send(html);

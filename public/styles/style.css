@@ -45,6 +45,10 @@ table {
 
 /*mis css*/
 
+nav {
+    display:inline
+}
+
 nav ul {
     display:inline
 }
