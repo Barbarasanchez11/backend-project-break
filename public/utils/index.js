@@ -1,8 +1,8 @@
 const express= require('express')
 
 
-function baseHtml (){ 
-  const baseHtml =`
+function baseHtml() {
+  return `
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -13,67 +13,64 @@ function baseHtml (){
 </head>
 <body>
     <header>
-       
+        <h1>Tienda de Productos</h1>
     </header>
-   
-    
 </body>
 </html>
-`
-return baseHtml
-}
-function getNavBar(){
-  return (
-    `<nav>
-      <ul>
-        <li><a href='/products/Proteinas'>Proteinas</a></li>
-        <li><a href='/products/Vitaminas'>Vitaminas</a></li>
-        <li><a href='/products/Snacks'>Snacks</a></li>
-        <li><a href='/products/NutricionDeportiva'>Nutrición Deportiva</a></li>
-        <li><a href='/products/Otros'>Otros</a></li>
-        <li><a href='/products/login'>Login</a>
-      </ul>
-    </nav>`
-  );
+`;
 }
 
-function getProductCards(products){
-    let html = ''
-    for(let product of products) {
-      html += `
-      <div class = 'productCard'>
-       <h2>${product.name}</h2>
+function getNavBar() {
+  return `
+<nav>
+  <ul>
+    <li><a href='/products/Proteinas'>Proteinas</a></li>
+    <li><a href='/products/Vitaminas'>Vitaminas</a></li>
+    <li><a href='/products/Snacks'>Snacks</a></li>
+    <li><a href='/products/NutricionDeportiva'>Nutrición Deportiva</a></li>
+    <li><a href='/products/Otros'>Otros</a></li>
+    <li><a href='/products/login'>Login</a></li>
+  </ul>
+</nav>
+`;
+}
+
+function getProductCards(products) {
+  let html = '<div id="product-container">'; 
+  for (let product of products) {
+    html += `
+      <div class='productCard'>
+        <h2>${product.name}</h2>
+        <img src='${product.image}' alt='${product.name}' style='width:100px;height:auto;' />
+        <a href='/products/${product._id}'>Ver</a>
+        
+      </div>
+    `;
+  }
+  html += '</div>'; 
+  return html;
+}
+
+function getProductCardsByID(products) {
+  let html = '<div id="product-container">'; 
+  for (let product of products) {
+    html += `
+      <div class='productCard'>
+        <h2>${product.name}</h2>
        <p>${product.description}</p>
        <img src='${product.image}' alt='${product.name}'>
        <p>${product.category}</p>
        <p>${product.flavour}</p>
        <p>${product.size}</p>
        <p>${product.price}</p>
-       <p>${product.stock}</p>
-  
-       
-      </div> 
-  
-      `
-    }
-    return html
-  }
-
-  function getProductCardById(product) {
-    return `
-    <div class='product'>
-        <h2>${product.name}</h2>
-        <p>${product.description}</p>
-        <img src='${product.image}' alt='${product.name}'>
-        <p>${product.category}</p>
-        <p>${product.flavour}</p>
-        <p>${product.size}</p>
-        <p>${product.price}</p>
-        <p>${product.stock}</p>
-    </div>
+        <a href='/products'>Volver</a>
+      </div>
     `;
+  }
+  html += '</div>'; 
+  return html;
 }
-
+ 
 function formNewProduct(){
   const formNewProduct =  
   `
@@ -213,11 +210,11 @@ const putForm = async (productId) => {
         name,
         description,
         image,
-        price, // Solo se usa una vez
+        price, 
         category,
         flavour,
         size,
-        stock, // Asegúrate de esto también
+        stock, 
         productId
       })
     });
@@ -233,14 +230,7 @@ const putForm = async (productId) => {
 
 function deleteProduct() {
   const deleteProduct = `
- <!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar producto</title>
-    <link rel="stylesheet" href="/styles.css">
-</head>
+
 <body>
     <h1>Editar producto</h1>
     <form action="/dashboard/${product._id}/delete" method="POST">
@@ -250,7 +240,7 @@ function deleteProduct() {
 return deleteProduct
 }
 
-module.exports =  {baseHtml, getNavBar, getProductCards,formNewProduct,formEditProduct,deleteProduct}
+module.exports =  {baseHtml, getNavBar,getProductCardsByID,getProductCards,formNewProduct,formEditProduct,deleteProduct}
 /*
 const baseHtml = `
 <!DOCTYPE html>

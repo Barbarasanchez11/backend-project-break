@@ -1,23 +1,23 @@
 const Product = require('../models/Product')
-const {baseHtml, getNavBar, getProductCards, formNewProduct, formEditProduct,deleteProduct} = require('../public/utils/index')
+const {baseHtml, getNavBar, getProductCards, getProductCardsByID,formNewProduct, formEditProduct,deleteProduct} = require('../public/utils/index')
 const path=require('path')
 
 const productController = {
-  async showProduct(req,res) {
+  async showProduct(req, res) {
     try {
       const products = await Product.find();
-      if(!products) throw new Error('No se encontraron productos')
-      const productCards = getProductCards(products);
-      const html = baseHtml() + getNavBar() + productCards
-      
-     
+      if (!products || products.length === 0) throw new Error('No se encontraron productos');
+  
+      // Obtener el HTML base y la barra de navegación
+      const html = baseHtml() + getNavBar() + getProductCards(products); // Añadimos las tarjetas de productos
+  
       res.send(html);
-      ;    
     } catch (error) {
-      console.error(error)
-        res.status(500).send('Error fetching products')      
+      console.error(error);
+      res.status(500).send('Error al obtener los productos');
     }
   },
+  
 
 
  async showProductById(req,res){
@@ -27,12 +27,12 @@ const productController = {
         const products = await Product.findById(id) 
        
         if(!products) {
-            return res.status(404).json('Product not found')
+            return res.status(404).json('Producto no encontrado')
         }
-        const html = baseHtml() + getNavBar() + getProductCards([products])
+        const html = baseHtml() + getNavBar() + getProductCardsByID([products])
         res.send(html)
     }catch (error) {
-      res.status(500).json({message : 'An error occurred while trying to get the product.'})
+      res.status(500).json({message : 'Se produjo un error al intentar obtener el producto'})
   }
 },
 
@@ -47,7 +47,7 @@ async showProductByCategory(req,res){
         
         res.send(html)
     }catch(error){
-        res.status(500).json({message : 'An error occurred while trying to get the product.'})
+        res.status(500).json({message : 'Se produjo un error al intentar obtener el producto'})
     }
     
 },
@@ -57,7 +57,7 @@ async showNewProduct(req,res){
     res.send(html)
    } catch (error) {
     console.error(error)
-    res.status(500).json({message : 'entra.'})
+    res.status(500).json({message : 'Se produjo un error al intentar mostrar el producto'})
    } 
 },
 
@@ -66,8 +66,14 @@ async showDashboard(req,res){
 
     const products = await Product.find();
     if(!products) throw new Error('No se encontraron productos')
-    const productCards = getProductCards(products);
-    const html = baseHtml() + getNavBar() + productCards 
+      let productHtml = products.map(product => `
+        <div>
+          <h2>${product.name}</h2>
+          <img src='${product.image}' alt='${product.name}' style='width:100px;height:auto;' />
+          <a href='/dashboard/${product._id}'>Ver</a>
+        </div>
+      `).join('');
+    const html = baseHtml() + getNavBar()  + productHtml
     
     
     res.send(html);
@@ -98,7 +104,7 @@ async createProduct(req,res){
   } 
   catch(error){
     console.error(error)
-      res.status(500).json({message : 'An error occurred while trying to create the product.'})
+      res.status(500).json({message : 'Se produjo un error al intentar crear el producto'})
 
       
   }
@@ -106,15 +112,17 @@ async createProduct(req,res){
 
 async showDashboardById(req,res) {
   try {
-   const productId =req.params.productId   
-   const products = await Product.findById(productId)
+   const id = req.params.productId
+   const products = await Product.findById(id)
+
    if(!products) {
-      return res.status(404).json({message: 'The product with that ID does not exist'})
+      return res.status(404).json({message: 'El producto con ese Id no existe'})
    }
+   const html = baseHtml() + getNavBar() + getProductCards([products])
    res.status(200).json(products)
   } catch (error) {
       console.error(error)
-      res.status(500).json({message : 'An error occurred while fetching the product'})
+      res.status(500).json({message : 'Se produjo un error al intentar obtener el producto'})
       
   }
 },
@@ -125,15 +133,17 @@ async updateProduct(req,res){
     const id = req.params.productId;
     const body = req.body;
     const products= await Product.findByIdAndUpdate(id, body, { new: true });
+    const html = baseHtml()+ getNavBar() + formEditProduct(products)
    
     if(product)
         res.status(200).json('Producto actualizado correctamente')
     if (!products) {
       return res.status(404).send({ message: 'Producto no encontrado' })}
+      res.set('Content-Type', 'text/html')
     res.send(html)
 } catch (error) {
     console.error(error)
-    res.status(500).json({message : 'Ocurrió un error intentando actualizar el producto'})
+    res.status(500).json({message : 'Se produjo un error intentando actualizar el producto'})
 }
 
 },
@@ -143,23 +153,20 @@ async showEditProduct(req,res){
     const productId =req.params.productId 
     
     const products = await Product.findById(productId)
-    const html = baseHtml()+ getNavBar() + formEditProduct(products)
+    const html = baseHtml()+ getNavBar() 
     console.log(html)
     if(!products) {
      return res.status(404).json({message: 'The product with that ID does not exist'})
     }
+    
    
     res.send(html)
     
 } catch (error) {
     console.log(error)
-    res.status(500).json({message : 'An error occurred while loading the form'})
+    res.status(500).json({message : 'Se produjo un error al intentar cargar el formulario'})
 }
 },
-
-
-
-
 
 async deleteProduct(req, res) {
   const { confirm } = req.query; 
@@ -169,7 +176,7 @@ async deleteProduct(req, res) {
       const product = await Product.findById(productId);
 
       if (!product) {
-          return res.status(404).json({ message: "Product not found" });
+          return res.status(404).json({ message:'Producto no encontrado' });
       }
 
       if (confirm === 'true') {
@@ -180,8 +187,8 @@ async deleteProduct(req, res) {
       const html = deleteProduct();
       res.send(html);
   } catch (error) {
-      console.error(error); // Para ayudar a depurar posibles problemas
-      res.status(500).json({ message: 'Error occurred while attempting to delete the product' });
+      console.error(error); 
+      res.status(500).json({ message: 'Se produjo un error al intentar borrar el producto' });
   }
 }
 }
