@@ -6,11 +6,9 @@ const productController = {
   async showProduct(req, res) {
     try {
       const products = await Product.find();
-      if (!products || products.length === 0) throw new Error('No se encontraron productos');
-  
-      // Obtener el HTML base y la barra de navegación
-      const html = baseHtml() + getNavBar() + getProductCards(products); // Añadimos las tarjetas de productos
-  
+      if(!products) throw new Error('No se encontraron productos')
+      const html = baseHtml() + getNavBar() + getProductCards(products); 
+      console.log(products)
       res.send(html);
     } catch (error) {
       console.error(error);
