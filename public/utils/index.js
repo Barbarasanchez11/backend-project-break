@@ -51,7 +51,7 @@ function getProductCards(products) {
   return html;
 }
 
-function getProductCardsByID(products) {
+function getProductCardsById(products) {
   let html = '<div id="product-container">'; 
   for (let product of products) {
     html += `
@@ -81,6 +81,22 @@ function getNavBarDash() {
     <li><a href='/products/NutricionDeportiva'>Nutrición Deportiva</a></li>
     <li><a href='/products/Otros'>Otros</a></li>
     <li><a href='/products/login'>Login</a></li>
+    <li><a href='/dashboard/new'>Nuevo Producto</a></li>
+  </ul>
+</nav>
+`;
+}
+
+function getNavBarDashInd() {
+  return `
+<nav>
+  <ul>
+    <li><a href='/products/Proteinas'>Proteinas</a></li>
+    <li><a href='/products/Vitaminas'>Vitaminas</a></li>
+    <li><a href='/products/Snacks'>Snacks</a></li>
+    <li><a href='/products/NutricionDeportiva'>Nutrición Deportiva</a></li>
+    <li><a href='/products/Otros'>Otros</a></li>
+    <li><a href='/products/logout'>Logout</a></li>
     <li><a href='/dashboard/new'>Nuevo Producto</a></li>
   </ul>
 </nav>
@@ -256,7 +272,7 @@ function deleteProduct() {
 return deleteProduct
 }
 
-module.exports =  {baseHtml, getNavBar,getProductCardsByID,getNavBarDash,getProductCards,formNewProduct,formEditProduct,deleteProduct}
+module.exports =  {baseHtml, getNavBar,getProductCardsById,getNavBarDash,getNavBarDashInd,getProductCards,formNewProduct,formEditProduct,deleteProduct}
 /*
 const baseHtml = `
 <!DOCTYPE html>

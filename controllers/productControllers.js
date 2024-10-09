@@ -1,5 +1,5 @@
 const Product = require('../models/Product')
-const {baseHtml, getNavBar, getProductCards, getProductCardsByID,getNavBarDash,formNewProduct, formEditProduct,deleteProduct} = require('../public/utils/index')
+const {baseHtml, getNavBar, getProductCards, getProductCardsById,getNavBarDash,getNavBarDashInd,formNewProduct, formEditProduct,deleteProduct} = require('../public/utils/index')
 const path=require('path')
 
 const productController = {
@@ -25,7 +25,7 @@ const productController = {
         if(!products) {
             return res.status(404).json('Producto no encontrado')
         }
-        const html = baseHtml() + getNavBar() + getProductCardsByID([products])
+        const html = baseHtml() + getNavBar() + getProductCardsById([products])
         res.send(html)
     }catch (error) {
       res.status(500).json({message : 'Se produjo un error al intentar obtener el producto'})
@@ -108,12 +108,12 @@ async showDashboardById(req,res) {
   try {
    const id = req.params.productId
    const products = await Product.findById(id)
-
    if(!products) {
       return res.status(404).json({message: 'El producto con ese Id no existe'})
    }
-   const html = baseHtml() + getNavBar() + getProductCards([products])
-   res.status(200).json(products)
+   const html = baseHtml() + getNavBarDashInd() + getProductCardsById([products])
+
+   res.send(html)
   } catch (error) {
       console.error(error)
       res.status(500).json({message : 'Se produjo un error al intentar obtener el producto'})
