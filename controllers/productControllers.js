@@ -125,20 +125,18 @@ async showDashboardById(req,res) {
 
 async updateProduct(req,res){
   try {
-    
     const id = req.params.productId;
     const body = req.body;
+    console.log(body)
     const products= await Product.findByIdAndUpdate(id, body, { new: true });
     if (!products) {
-      return res.status(404).send({ message: 'Producto no encontrado' })}
-      res.redirect(`/dashboard/${product._id}`)
-      
-    res.send(html)
+      return res.status(404).send({ message: 'Producto no encontrado' })
+    } res.status(200).send({ message: 'Producto actualizado correctamente', product: products }); 
+     
 } catch (error) {
     console.error(error)
     res.status(500).json({message : 'Se produjo un error intentando actualizar el producto'})
 }
-
 },
 
 async showEditProduct(req,res){
@@ -148,7 +146,7 @@ async showEditProduct(req,res){
     if(!products) {
      return res.status(404).json({message: 'The product with that ID does not exist'})
     }
-    const html = baseHtml()+ getNavBarDashInd() + formEditProduct(products)
+    const html = baseHtml()+ getNavBarDashInd() + formEditProduct(req,products)
     res.send(html)
     
 } catch (error) {

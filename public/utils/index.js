@@ -183,16 +183,14 @@ function formNewProduct(){
   return formNewProduct
 }
 
-function formEditProduct(product){
-  const htmlEdit =  
-  `
-
-<body>
+function formEditProduct(req, product) {
+  const htmlEdit = `
+  <body>
     <h1>Editar producto</h1>
     <form action="/dashboard/${product._id}" method="POST">
         <div>
             <label for="name">Nombre</label>
-            <input type="text" id="name" name="name"  value=${product.name} required>
+            <input type="text" id="name" name="name" value="${product.name}" required>
         </div>
         <div>
             <label for="description">Descripción:</label>
@@ -200,22 +198,21 @@ function formEditProduct(product){
         </div>
         <div>
             <label for="image">Imagen</label>
-            <input type="text" id="image" name="image" value=${product.image}required>
+            <input type="text" id="image" name="image" value="${product.image}" required>
         </div>
         <div>
           <label for="category">Categoría:</label>
-           <select id="category" name="category"  required>
+           <select id="category" name="category" required>
                 <option value="Proteinas" ${product.category === 'Proteinas' ? 'selected' : ''}>Proteinas</option>
                 <option value="Vitaminas" ${product.category === 'Vitaminas' ? 'selected' : ''}>Vitaminas</option>
                 <option value="Snacks" ${product.category === 'Snacks' ? 'selected' : ''}>Snacks</option>
                 <option value="Nutrición deportiva" ${product.category === 'Nutrición deportiva' ? 'selected' : ''}>Nutrición deportiva</option>
                 <option value="Otros" ${product.category === 'Otros' ? 'selected' : ''}>Otros</option>
             </select>
-            <br>
         </div>
         <div>
             <label for="flavour">Sabor:</label>
-            <input type="text" id="flavour" name="flavour" value=${product.flavour} required>
+            <input type="text" id="flavour" name="flavour" value="${product.flavour}" required>
         </div>
         <div>
             <label for="size">Tamaño:</label>
@@ -232,57 +229,59 @@ function formEditProduct(product){
         </div>
         <div>
             <label for="price">Precio:</label>
-            <input type="number" id="price" name="price"  value=${product.price}required step="0.01">
+            <input type="number" id="price" name="price" value="${product.price}" required step="0.01">
         </div>
         
-         
-         <a href="/dashboard" id="cancel">Cancelar</a>
-        
+        <button type="submit" id="submit-button">Guardar</button>
+        <a href="/dashboard" id="cancel">Cancelar</a>
+      
     </form>
-    
-</body>
-</html>
+    <script>
+      document.getElementById('submit-button').addEventListener('click', async (event) => {
+          event.preventDefault();
+
+          const productId = '${product._id}'; // Just use product._id directly from the product object
+          
+          const data = { 
+            name: document.getElementById('name').value,
+            description: document.getElementById('description').value,
+            image: document.getElementById('image').value,
+            category: document.getElementById('category').value,
+            flavour: document.getElementById('flavour').value,
+            size: document.getElementById('size').value,
+            price: document.getElementById('price').value,
+            // Asegúrate de tener el stock en tu HTML y en este código si es necesario
+          };
+          
+          try {
+              const response = await fetch(\`/dashboard/\${productId}\`, { 
+                  method: 'PUT',
+                  headers: {
+                      'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify(data)
+              });
+
+              const dataResponse = await response.json();
+              if (dataResponse.success) { 
+                  window.location.href = '/dashboard';
+              } else {
+                  console.error('Error al actualizar el producto');
+              }
+          } catch (error) {
+              console.error('Se produjo un problema al editar el producto', error);
+          }
+      });
+    </script>
+  </body>
   `;
-  return htmlEdit
+  return htmlEdit;
 }
 
-const putForm = async (productId) => { 
-  const name = document.getElementById('name').value;
-  const description = document.getElementById('description').value;
-  const image = document.getElementById('image').value;
-  const category = document.getElementById('category').value;
-  const flavour = document.getElementById('flavour').value;
-  const size = document.getElementById('size').value;
-  const price = document.getElementById('price').value;
-  const stock = document.getElementById('stock').value;
 
-  try {
-    const response = await fetch(`/dashboard/${productId}`, { 
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        name,
-        description,
-        image,
-        price, 
-        category,
-        flavour,
-        size,
-        stock, 
-        productId
-      })
-    });
 
-    const data = await response.json();
-    if (data.success) { 
-      window.location.href = '/dashboard'
-    }
-  } catch (error) {
-    window.location.href = `/dashboard/${productId}/edit`
-  }
-};
+
+  
 
 function deleteProduct() {
   const deleteProduct = `
