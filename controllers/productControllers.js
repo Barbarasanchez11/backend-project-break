@@ -9,6 +9,7 @@ const productController = {
       const products = await Product.find();
       if(!products) throw new Error('No se encontraron productos')
       const html = baseHtml() + getNavBar() + getProductCards(products); 
+      console.log()
       
       res.send(html);
     } catch (error) {
@@ -20,9 +21,8 @@ const productController = {
  async showProductById(req,res){
     
     try{
-        const id = req.params._id
+        const id = req.params.productId
         const products = await Product.findById(id) 
-       
         if(!products) {
             return res.status(404).json('Producto no encontrado')
         }
@@ -36,11 +36,11 @@ const productController = {
 async showProductByCategory(req,res){
     const path = req.path   
     const category = path.split('/products/').join('')//se divide en ['', 'Proteinas']con join se convierte en Proteinas 
-    
+    console.log(category)
     try{
         const products = [await Product.findOne({category})]
-        const html = baseHtml() + getNavBar() + getProductCards(products)
-        //console.log(html)
+        const html = baseHtml() + getNavBar() + getProductCards(products) + `<a href='/products'>Volver</a>`
+        
         
         res.send(html)
     }catch(error){
@@ -165,7 +165,6 @@ async deleteProduct(req, res) {
       if (!product) {
           return res.status(404).json({ message:'Producto no encontrado' });
       }
-
       if (confirm === 'true') {
           await Product.findByIdAndDelete(productId);
           return res.redirect('/dashboard');

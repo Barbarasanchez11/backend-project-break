@@ -7,8 +7,6 @@ const productController = require('../controllers/productControllers')
 //GET /products: Devuelve todos los productos. Cada producto tendrá un enlace a su página de detalle. OK
 router.get('/products', productController.showProduct)
 
-
-
 //Nos lleva a cada producto por la categoria. OK
 router.get('/products/Proteinas',productController.showProductByCategory)
 router.get('/products/Vitaminas',productController.showProductByCategory)
@@ -17,9 +15,7 @@ router.get('/products/NutricionDeportiva',productController.showProductByCategor
 router.get('/products/Otros',productController.showProductByCategory)
 
 // Devuelve el detalle de un producto. OK
-router.get('/products/:_id', productController.showProductById)
-
-
+router.get('/products/:productId', productController.showProductById)
 
 // Devuelve el detalle de un producto en el dashboard. desde ahi puedo crear producto. OK
 router.get('/dashboard/new', productController.showNewProduct)
@@ -28,10 +24,10 @@ router.get('/dashboard/new', productController.showNewProduct)
 router.post('/dashboard/new', productController.createProduct)
 
 // Devuelve el dashboard del administrador. En el dashboard aparecerán todos los artículos que se hayan subido. 
-//Si clickamos en uno de ellos nos llevará a su página para poder actualizarlo o eliminarlo.
+//Si clickamos en uno de ellos nos llevará a su página para poder actualizarlo o eliminarlo.OK
 router.get('/dashboard',productController.showDashboard)
 
-//Devuelve el detalle de un producto en el dashboard. OK?me lleva a la ruta de products
+//Devuelve el detalle de un producto en el dashboard. OK
 router.get('/dashboard/:productId', productController.showDashboardById)
 
 //Actualiza un producto.
