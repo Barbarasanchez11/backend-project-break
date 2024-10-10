@@ -1,5 +1,5 @@
 const Product = require('../models/Product')
-const {baseHtml, getNavBar, getProductCards, getProductCardsById,getNavBarDash,getNavBarDashInd,getProductCardsDash,formNewProduct, formEditProduct,deleteProduct} = require('../public/utils/index')
+const {baseHtml, getNavBar, getProductCards, getProductCardsById,getNavBarDash,getNavBarDashInd,getProductCardsDash,formNewProduct, formEditProduct,deleteProd} = require('../public/utils/index')
 const path=require('path')
 
 const productController = {
@@ -113,7 +113,7 @@ async showDashboardById(req,res) {
       return res.status(404).json({message: 'El producto con ese Id no existe'})
    }
    const html = baseHtml() + getNavBarDashInd() + getProductCardsDash([products]) +
-   `<a href='/dashboard/${id}/edit'>Editar</a>`
+   `<a href='/dashboard/${id}/edit'>Editar</a>` + `<a href='/dashboard/${id}/delete'>Borrar</a>`
 
    res.send(html)
   } catch (error) {
@@ -170,7 +170,7 @@ async deleteProduct(req, res) {
           return res.redirect('/dashboard');
       }
 
-      const html = deleteProduct();
+      const html = baseHtml()+ getNavBarDashInd() + deleteProd(product)
       res.send(html);
   } catch (error) {
       console.error(error); 
