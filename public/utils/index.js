@@ -71,6 +71,26 @@ function getProductCardsById(products) {
   return html;
 }
 
+function getProductCardsDash(products) {
+  let html = '<div id="product-container">'; 
+  for (let product of products) {
+    html += `
+      <div class='productCard'>
+        <h2>${product.name}</h2>
+       <p>${product.description}</p>
+       <img src='${product.image}' alt='${product.name}'>
+       <p>${product.category}</p>
+       <p>${product.flavour}</p>
+       <p>${product.size}</p>
+       <p>${product.price}</p>
+        <a href='/dashboard'>Volver</a>
+      </div>
+    `;
+  }
+  html += '</div>'; 
+  return html;
+}
+
 function getNavBarDash() {
   return `
 <nav>
@@ -169,14 +189,14 @@ function formEditProduct(product){
 
 <body>
     <h1>Editar producto</h1>
-    <form action="/dashboard/${product._id}/edit?_method=PUT" method="POST">
+    <form action="/dashboard/${product._id}" method="POST">
         <div>
             <label for="name">Nombre</label>
             <input type="text" id="name" name="name"  value=${product.name} required>
         </div>
         <div>
             <label for="description">Descripción:</label>
-            <textarea id="description" name="description" ${product.description} required>${product.description}</textarea>
+            <textarea id="description" name="description" required>${product.description}</textarea>
         </div>
         <div>
             <label for="image">Imagen</label>
@@ -184,21 +204,22 @@ function formEditProduct(product){
         </div>
         <div>
           <label for="category">Categoría:</label>
-           <select id="category" name="category" required>
+           <select id="category" name="category"  required>
                 <option value="Proteinas" ${product.category === 'Proteinas' ? 'selected' : ''}>Proteinas</option>
                 <option value="Vitaminas" ${product.category === 'Vitaminas' ? 'selected' : ''}>Vitaminas</option>
                 <option value="Snacks" ${product.category === 'Snacks' ? 'selected' : ''}>Snacks</option>
                 <option value="Nutrición deportiva" ${product.category === 'Nutrición deportiva' ? 'selected' : ''}>Nutrición deportiva</option>
                 <option value="Otros" ${product.category === 'Otros' ? 'selected' : ''}>Otros</option>
             </select>
+            <br>
         </div>
         <div>
             <label for="flavour">Sabor:</label>
-            <input type="text" id="flavour" name="flavour" required>
+            <input type="text" id="flavour" name="flavour" value=${product.flavour} required>
         </div>
         <div>
             <label for="size">Tamaño:</label>
-            <select id="category" name="category" required>
+            <select id="size" name="size" required>
                 <option value="250g" ${product.size === '250g' ? 'selected' : ''}>250g</option>
                 <option value="500g" ${product.size === '500g' ? 'selected' : ''}>500g</option>
                 <option value="1kg" ${product.size === '1kg' ? 'selected' : ''}>1kg</option>
@@ -213,9 +234,12 @@ function formEditProduct(product){
             <label for="price">Precio:</label>
             <input type="number" id="price" name="price"  value=${product.price}required step="0.01">
         </div>
-        <button type="submit">Editar</button>
+        
+         
+         <a href="/dashboard" id="cancel">Cancelar</a>
+        
     </form>
-    <a href="/dashboard">Volver</a>
+    
 </body>
 </html>
   `;
@@ -272,7 +296,7 @@ function deleteProduct() {
 return deleteProduct
 }
 
-module.exports =  {baseHtml, getNavBar,getProductCardsById,getNavBarDash,getNavBarDashInd,getProductCards,formNewProduct,formEditProduct,deleteProduct}
+module.exports =  {baseHtml, getNavBar,getProductCardsById,getNavBarDash,getNavBarDashInd,getProductCards,getProductCardsDash,formNewProduct,formEditProduct,deleteProduct}
 /*
 const baseHtml = `
 <!DOCTYPE html>

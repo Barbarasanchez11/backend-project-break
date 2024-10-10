@@ -1,8 +1,9 @@
 const Product = require('../models/Product')
-const {baseHtml, getNavBar, getProductCards, getProductCardsById,getNavBarDash,getNavBarDashInd,formNewProduct, formEditProduct,deleteProduct} = require('../public/utils/index')
+const {baseHtml, getNavBar, getProductCards, getProductCardsById,getNavBarDash,getNavBarDashInd,getProductCardsDash,formNewProduct, formEditProduct,deleteProduct} = require('../public/utils/index')
 const path=require('path')
 
 const productController = {
+
   async showProduct(req, res) {
     try {
       const products = await Product.find();
@@ -111,7 +112,8 @@ async showDashboardById(req,res) {
    if(!products) {
       return res.status(404).json({message: 'El producto con ese Id no existe'})
    }
-   const html = baseHtml() + getNavBarDashInd() + getProductCardsById([products])
+   const html = baseHtml() + getNavBarDashInd() + getProductCardsDash([products]) +
+   `<a href='/dashboard/${id}/edit'>Editar</a>`
 
    res.send(html)
   } catch (error) {
@@ -127,13 +129,10 @@ async updateProduct(req,res){
     const id = req.params.productId;
     const body = req.body;
     const products= await Product.findByIdAndUpdate(id, body, { new: true });
-    const html = baseHtml()+ getNavBar() + formEditProduct(products)
-   
-    if(product)
-        res.status(200).json('Producto actualizado correctamente')
     if (!products) {
       return res.status(404).send({ message: 'Producto no encontrado' })}
-      res.set('Content-Type', 'text/html')
+      res.redirect(`/dashboard/${product._id}`)
+      
     res.send(html)
 } catch (error) {
     console.error(error)
@@ -144,16 +143,12 @@ async updateProduct(req,res){
 
 async showEditProduct(req,res){
   try {
-    const productId =req.params.productId 
-    
-    const products = await Product.findById(productId)
-    const html = baseHtml()+ getNavBar() 
-    console.log(html)
+    const productId =req.params.productId  
+    const products = await Product.findById(productId)  
     if(!products) {
      return res.status(404).json({message: 'The product with that ID does not exist'})
     }
-    
-   
+    const html = baseHtml()+ getNavBarDashInd() + formEditProduct(products)
     res.send(html)
     
 } catch (error) {
