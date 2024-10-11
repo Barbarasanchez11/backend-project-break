@@ -52,6 +52,7 @@ async showNewProduct(req,res){
   try {
     const html =  baseHtml() + getNavBar() + formNewProduct()
     res.send(html)
+    
    } catch (error) {
     console.error(error)
     res.status(500).json({message : 'Se produjo un error al intentar mostrar el producto'})
@@ -95,7 +96,7 @@ async createProduct(req,res){
       })
       await createItem.save()//guardamos el prod. en la BBDD
       res.status(201).json(createItem)
-      
+     
   } 
   catch(error){
     console.error(error)
