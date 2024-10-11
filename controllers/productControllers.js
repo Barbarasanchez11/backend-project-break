@@ -123,22 +123,6 @@ async showDashboardById(req,res) {
   }
 },
 
-async updateProduct(req,res){
-  try {
-    const id = req.params.productId;
-    const body = req.body;
-    console.log(body)
-    const products= await Product.findByIdAndUpdate(id, body, { new: true });
-    if (!products) {
-      return res.status(404).send({ message: 'Producto no encontrado' })
-    } res.status(200).send({ message: 'Producto actualizado correctamente', product: products }); 
-     
-} catch (error) {
-    console.error(error)
-    res.status(500).json({message : 'Se produjo un error intentando actualizar el producto'})
-}
-},
-
 async showEditProduct(req,res){
   try {
     const productId =req.params.productId  
@@ -154,6 +138,24 @@ async showEditProduct(req,res){
     res.status(500).json({message : 'Se produjo un error al intentar cargar el formulario'})
 }
 },
+
+async updateProduct(req,res){
+  try {
+    const id = req.params.productId;
+    const body = req.body;
+    
+    const products= await Product.findByIdAndUpdate(id, body, { new: true });
+    if (!products) {
+      return res.status(404).send({ message: 'Producto no encontrado' })
+    } 
+    res.json({ success: true });
+} catch (error) {
+    console.error(error)
+    res.status(500).json({message : 'Se produjo un error intentando actualizar el producto'})
+}
+},
+
+
 
 async deleteProduct(req, res) {
   const { confirm } = req.query; 

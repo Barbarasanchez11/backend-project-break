@@ -30,11 +30,13 @@ router.get('/dashboard',productController.showDashboard)
 //Devuelve el detalle de un producto en el dashboard. OK
 router.get('/dashboard/:productId', productController.showDashboardById)
 
+// Devuelve el formulario para editar un producto.
+router.get('/dashboard/:productId/edit', productController.showEditProduct)
+
 //Actualiza un producto.
 router.put('/dashboard/:productId', productController.updateProduct)
 
-// Devuelve el formulario para editar un producto.
-router.get('/dashboard/:productId/edit', productController.showEditProduct)
+
 
 // Elimina un producto.
 router.delete('/dashboard/:productId/delete',productController.deleteProduct)

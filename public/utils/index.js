@@ -202,6 +202,7 @@ function formNewProduct(){
             <input type="number" id="price" name="price" required step="0.01">
         </div>
         <button type="submit">Agregar Producto</button>
+        
     </form>
     <a href="/dashboard"> Volver</a>
    
@@ -264,18 +265,17 @@ function formEditProduct(req, product) {
             <input type="number" id="stock" name="stock" value="${product.stock}" required step="0.01">
         </div>
         
-        <a href="/dashboard/${product._id}/" id="editar">Editar</a>
-        <a href="/dashboard/${product._id}/" id="borrar">Borrar</a>
+        
+         <button type="submit" id="save-button">Guardar</button>
+         <button type="button" id="delete-button">Borrar</button>
         <a href="/dashboard" id="cancel">Cancelar</a>
   
      
     </form>
     <script>
-      document.getElementById('submit-button').addEventListener('click', async (event) => {
+      document.getElementById('save-button').addEventListener('click', async (event) => {
           event.preventDefault();
-
           const productId = '${product._id}'; 
-          
           const data = { 
             name: document.getElementById('name').value,
             description: document.getElementById('description').value,
@@ -284,7 +284,7 @@ function formEditProduct(req, product) {
             flavour: document.getElementById('flavour').value,
             size: document.getElementById('size').value,
             price: document.getElementById('price').value,
-            stock:document.getTlementById('stock').value
+            
           };
           
           try {
@@ -295,7 +295,6 @@ function formEditProduct(req, product) {
                   },
                   body: JSON.stringify(data)
               });
-
               const dataResponse = await response.json();
               if (dataResponse.success) { 
                   window.location.href = '/dashboard';
@@ -309,9 +308,9 @@ function formEditProduct(req, product) {
     </script>
   </body>
   `;
+  
   return htmlEdit;
 }
-
 
 
 
