@@ -217,6 +217,7 @@ function formEditProduct(req, product) {
   <body>
     <h1>Editar producto</h1>
     <form action="/dashboard/${product._id}" method="POST">
+     
         <div>
             <label for="name">Nombre</label>
             <input type="text" id="name" name="name" value="${product.name}" required>
@@ -267,8 +268,8 @@ function formEditProduct(req, product) {
         
         
          <button type="submit" id="save-button">Guardar</button>
-         <button type="button" id="delete-button">Borrar</button>
-        <a href="/dashboard" id="cancel">Cancelar</a>
+       
+         <a href="/dashboard" id="cancel">Cancelar</a>
   
      
     </form>
@@ -327,7 +328,7 @@ function deleteProd(product) {
             const productId = '${product._id}';
   
             try {
-                const response = await fetch(\`/dashboard/\${productId}\`, {
+                const response = await fetch(\`/dashboard/\${productId}/delete\`, {
                     method: 'DELETE',
                     headers: {
                         'Content-Type': 'application/json'

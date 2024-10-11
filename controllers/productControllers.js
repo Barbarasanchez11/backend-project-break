@@ -113,7 +113,25 @@ async showDashboardById(req,res) {
       return res.status(404).json({message: 'El producto con ese Id no existe'})
    }
    const html = baseHtml() + getNavBarDashInd() + getProductCardsDash([products]) +
-   `<a href='/dashboard/${id}/edit'>Editar</a>` + `<a href='/dashboard/${id}/delete'>Borrar</a>`
+   `<a href='/dashboard/${id}/edit'>Editar</a>` +  `<button id="delete-button">Borrar</button>
+   <script>
+       document.getElementById('delete-button').addEventListener('click', async () => {
+           const productId = '${id}';
+           const response = await fetch(\`/dashboard/\${productId}/delete\`, {
+               method: 'DELETE',
+               headers: {
+                   'Content-Type': 'application/json'
+               }
+           });
+           const dataResponse = await response.json();
+           if (dataResponse.success) {
+               window.location.href = '/dashboard';
+           } else {
+               alert(dataResponse.message);
+           }
+       });
+   </script>`;
+   
 
    res.send(html)
   } catch (error) {
@@ -158,8 +176,9 @@ async updateProduct(req,res){
 
 
 async deleteProduct(req, res) {
-  const { confirm } = req.query; 
+  
   const productId = req.params.productId;
+  console.log(productId)
 
   try {
       const product = await Product.findById(productId);
@@ -167,13 +186,12 @@ async deleteProduct(req, res) {
       if (!product) {
           return res.status(404).json({ message:'Producto no encontrado' });
       }
-      if (confirm === 'true') {
+      
           await Product.findByIdAndDelete(productId);
-          res.status(200).send({ message: 'Producto eliminado correctamente', product: products }); 
-      }
-
-      const html = baseHtml()+ getNavBarDashInd() + deleteProd(product)
-      res.send(html);
+          res.status(200).json({ message: 'Producto eliminado correctamente' }); 
+      
+      
+      
   } catch (error) {
       console.error(error); 
       res.status(500).json({ message: 'Se produjo un error al intentar borrar el producto' });
