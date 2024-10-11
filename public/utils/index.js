@@ -122,6 +122,34 @@ function getNavBarDashInd() {
 </nav>
 `;
 }
+
+function navBar(isFromDashboard){
+  const categories = ["Proteinas", "Vitaminas", "Snacks", "NutricionDeportiva", "Otros"];
+  
+  const createListItem = (cat) => {
+    const basePath = isFromDashboard ? '/dashboard' : '/';
+    return `<li><a href='${basePath}?category=${cat}'>${cat}</a></li>`;
+  };
+  
+  const listItems = categories.map(createListItem).join('');
+  const productsLink = isFromDashboard ? '/dashboard' : '/';
+  
+  return `
+    <nav>
+      <div>
+        <a href="${productsLink}">Productos</a>
+      </div>
+      <ul>
+        ${listItems}
+      </ul>
+      <div>
+        ${loginOrLogoutLink}
+        <li><a href='/dashboard/new'>Nuevo Producto</a></li>
+      </div>
+    </nav>
+  `;
+}
+
  
 function formNewProduct(){
   const formNewProduct =  
@@ -231,9 +259,13 @@ function formEditProduct(req, product) {
             <label for="price">Precio:</label>
             <input type="number" id="price" name="price" value="${product.price}" required step="0.01">
         </div>
+        <div>
+            <label for="stock">Stock:</label>
+            <input type="number" id="stock" name="stock" value="${product.stock}" required step="0.01">
+        </div>
         
-        <button type="submit" id="guardar">Guardar</button>
-         <a href="/dashboard/${product._id}/delete" id="borrar">Borrar</a>
+        <a href="/dashboard/${product._id}/" id="editar">Editar</a>
+        <a href="/dashboard/${product._id}/" id="borrar">Borrar</a>
         <a href="/dashboard" id="cancel">Cancelar</a>
   
      
@@ -252,7 +284,7 @@ function formEditProduct(req, product) {
             flavour: document.getElementById('flavour').value,
             size: document.getElementById('size').value,
             price: document.getElementById('price').value,
-            // Asegúrate de tener el stock en tu HTML y en este código si es necesario
+            stock:document.getTlementById('stock').value
           };
           
           try {
@@ -287,37 +319,39 @@ function formEditProduct(req, product) {
 function deleteProd(product) {
   const htmlDelete = `
   <body>
-    <h1>Eliminar producto</h1>
-    <p>¿Estás seguro de que deseas eliminar el producto <strong>${product.name}</strong>?</p>
-    <button id="delete-button">Borrar</button>
-    <a href="/dashboard">Cancelar</a>
-    <script>
-      document.getElementById('delete-button').addEventListener('click', async () => {
-          const productId = '${product._id}';
-
-          try {
-              const response = await fetch(\`/dashboard/\${productId}\`, {
-                  method: 'DELETE'
-              });
-
-              const dataResponse = await response.json();
-              if (dataResponse.success) {
-                  window.location.href = '/dashboard';
-              } else {
-                  console.error('Error al eliminar el producto');
-              }
-          } catch (error) {
-              console.error('Se produjo un problema al eliminar el producto', error);
-          }
-      });
-    </script>
+      <h1>Eliminar producto</h1>
+      <p>¿Estás seguro de que deseas eliminar el producto <strong>${product.name}</strong>?</p>
+      <button id="delete-button">Borrar</button>
+      <a href="/dashboard">Cancelar</a>
+      <script>
+        document.getElementById('delete-button').addEventListener('click', async () => {
+            const productId = '${product._id}';
+  
+            try {
+                const response = await fetch(\`/dashboard/\${productId}\`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+  
+                const dataResponse = await response.json();
+                if (dataResponse.success) {
+                    window.location.href = '/dashboard';
+                } else {
+                    console.error('Error al eliminar el producto');
+                }
+            } catch (error) {
+                console.error('Se produjo un problema al eliminar el producto', error);
+            }
+        });
+      </script>
   </body>
   `;
-  
   return htmlDelete;
 }
 
-module.exports =  {baseHtml, getNavBar,getProductCardsById,getNavBarDash,getNavBarDashInd,getProductCards,getProductCardsDash,formNewProduct,formEditProduct,deleteProd}
+module.exports =  {baseHtml,getNavBar,getProductCardsById,getNavBarDash,getNavBarDashInd,getProductCards,getProductCardsDash,formNewProduct,formEditProduct,deleteProd}
 /*
 const baseHtml = `
 <!DOCTYPE html>

@@ -36,7 +36,7 @@ const productController = {
 async showProductByCategory(req,res){
     const path = req.path   
     const category = path.split('/products/').join('')//se divide en ['', 'Proteinas']con join se convierte en Proteinas 
-    console.log(category)
+    
     try{
         const products = [await Product.findOne({category})]
         const html = baseHtml() + getNavBar() + getProductCards(products) + `<a href='/products'>Volver</a>`
@@ -167,7 +167,7 @@ async deleteProduct(req, res) {
       }
       if (confirm === 'true') {
           await Product.findByIdAndDelete(productId);
-          return res.redirect('/dashboard');
+          res.status(200).send({ message: 'Producto eliminado correctamente', product: products }); 
       }
 
       const html = baseHtml()+ getNavBarDashInd() + deleteProd(product)
