@@ -95,7 +95,7 @@ async createProduct(req,res){
        stock
       })
       await createItem.save()//guardamos el prod. en la BBDD
-      res.status(201).json(createItem)
+      res.redirect('/dashboard');
      
   } 
   catch(error){
@@ -147,7 +147,7 @@ async showEditProduct(req,res){
     const productId =req.params.productId  
     const products = await Product.findById(productId)  
     if(!products) {
-     return res.status(404).json({message: 'The product with that ID does not exist'})
+     return res.status(404).json({message: 'El producto con ese Id no existe'})
     }
     const html = baseHtml()+ getNavBarDashInd() + formEditProduct(req,products)
     res.send(html)
@@ -197,10 +197,14 @@ async deleteProduct(req, res) {
       console.error(error); 
       res.status(500).json({ message: 'Se produjo un error al intentar borrar el producto' });
   }
-}
-}
+},
 
 
+/* Bonus Login*/
+
+
+
+}
 
 module.exports = productController;
 
