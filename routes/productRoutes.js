@@ -4,6 +4,8 @@ const Product = require('../models/Product')
 const productController = require('../controllers/productControllers')
 
 
+router.get('/', productController.showProduct)
+
 //GET /products: Devuelve todos los productos. Cada producto tendrá un enlace a su página de detalle. OK
 router.get('/products', productController.showProduct)
 
@@ -13,6 +15,8 @@ router.get('/products/Vitaminas',productController.showProductByCategory)
 router.get('/products/Snacks',productController.showProductByCategory)
 router.get('/products/NutricionDeportiva',productController.showProductByCategory)
 router.get('/products/Otros',productController.showProductByCategory)
+
+
 
 // Devuelve el detalle de un producto. OK
 router.get('/products/:productId', productController.showProductById)
@@ -30,13 +34,11 @@ router.get('/dashboard',productController.showDashboard)
 //Devuelve el detalle de un producto en el dashboard. OK
 router.get('/dashboard/:productId', productController.showDashboardById)
 
-// Devuelve el formulario para editar un producto.
-router.get('/dashboard/:productId/edit', productController.showEditProduct)
-
-//Actualiza un producto.
+//Actualiza un producto.OK
 router.put('/dashboard/:productId', productController.updateProduct)
 
-
+// Devuelve el formulario para editar un producto.OK
+router.get('/dashboard/:productId/edit', productController.showEditProduct)
 
 // Elimina un producto.
 router.delete('/dashboard/:productId/delete',productController.deleteProduct)

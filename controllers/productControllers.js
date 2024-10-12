@@ -189,7 +189,7 @@ async deleteProduct(req, res) {
       }
       
           await Product.findByIdAndDelete(productId);
-          res.status(200).json({ message: 'Producto eliminado correctamente' }); 
+          res.status(200).json({ success: 'Producto eliminado correctamente' }); 
       
       
       
