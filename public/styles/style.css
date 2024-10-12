@@ -45,12 +45,25 @@ table {
 
 /*mis css*/
 
-nav {
-    display:inline
+header {
+	display: flex;
+	justify-content: center;
+	text-align: center;
+	padding: 20px;
 }
 
+
+nav {
+    display:inline;
+	justify-content:inline
+}
+div {
+	display: inline;
+	
+}
 nav ul {
-    display:inline
+    display:flex;
+	padding: 10px
 }
 nav ul li{
     text-decoration: none;

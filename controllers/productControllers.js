@@ -1,5 +1,6 @@
 const Product = require('../models/Product')
 const {baseHtml, getNavBar, getProductCards, getProductCardsById,getNavBarDash,getNavBarDashInd,getProductCardsDash,formNewProduct, formEditProduct,deleteProd} = require('../public/utils/index')
+const firebase = require('../config/firebase')
 const path=require('path')
 
 const productController = {

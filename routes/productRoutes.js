@@ -2,6 +2,46 @@ const express = require('express')
 const router = express.Router()
 const Product = require('../models/Product')
 const productController = require('../controllers/productControllers')
+const path = require('path')
+const admin = require('firebase-admin')
+const { FirebaseInstallationsError } = require('firebase-admin/installations')
+const auth= admin.auth()
+
+
+router.get('/register', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public/views', 'register.html'));
+});
+
+router.post('/register', async (req, res) => {
+    const { email, password } = req.body;
+    try {
+        await auth.createUser({ email, password });
+        res.redirect('/login');
+    } catch (error) {
+        console.error(`Error interno: ${error.message}`);
+        res.redirect('/register');
+    }
+});
+    
+
+
+router.get('/login', (req,res) => {
+    res.sendFile(path.join(__dirname, '../public/views', 'login.html'))
+})
+
+router.post('/login', async(req,res) => {
+    const {idToken} = req.body
+    try {
+       const token = await auth.verifyIdToken(idToken)
+        res.cookie('token', idToken, {httpOnly: true, secure: false})
+        res.redirect('/dashboard')
+       
+    } catch (error) {
+        console.log(`Error ${error}`)
+    }
+})
+
+//router.post('/logout', (req,res) => //
 
 
 router.get('/', productController.showProduct)
@@ -30,6 +70,16 @@ router.post('/dashboard/new', productController.createProduct)
 // Devuelve el dashboard del administrador. En el dashboard aparecerán todos los artículos que se hayan subido. 
 //Si clickamos en uno de ellos nos llevará a su página para poder actualizarlo o eliminarlo.OK
 router.get('/dashboard',productController.showDashboard)
+
+/*Bonus login*/
+router.post('/products/login', async (req,res)=> {
+    try {
+        const login = req.session.user
+        console.log(login)
+    } catch (error) {
+        
+    }
+})
 
 //Devuelve el detalle de un producto en el dashboard. OK
 router.get('/dashboard/:productId', productController.showDashboardById)
