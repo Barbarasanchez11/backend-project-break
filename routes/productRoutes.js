@@ -4,9 +4,25 @@ const Product = require('../models/Product')
 const productController = require('../controllers/productControllers')
 const path = require('path')
 const admin = require('firebase-admin')
-const { FirebaseInstallationsError } = require('firebase-admin/installations')
 const auth= admin.auth()
 
+
+router.get('/', productController.showProduct)
+
+//GET /products: Devuelve todos los productos. Cada producto tendrá un enlace a su página de detalle. OK
+router.get('/products', productController.showProduct)
+
+//Nos lleva a cada producto por la categoria. OK
+router.get('/products/Proteinas',productController.showProductByCategory)
+router.get('/products/Vitaminas',productController.showProductByCategory)
+router.get('/products/Snacks',productController.showProductByCategory)
+router.get('/products/NutricionDeportiva',productController.showProductByCategory)
+router.get('/products/Otros',productController.showProductByCategory)
+
+
+
+// Devuelve el detalle de un producto. OK
+router.get('/products/:productId', productController.showProductById)
 
 router.get('/register', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/views', 'register.html'));
@@ -31,35 +47,18 @@ router.get('/login', (req,res) => {
 
 router.post('/login', async(req,res) => {
     const {idToken} = req.body
+    console.log({idToken})
     try {
-       const token = await auth.verifyIdToken(idToken)
+       
+        await auth.verifyIdToken(idToken)
         res.cookie('token', idToken, {httpOnly: true, secure: false})
-        res.redirect('/dashboard')
+        res.json({success : true})
        
     } catch (error) {
         console.log(`Error ${error}`)
     }
 })
 
-//router.post('/logout', (req,res) => //
-
-
-router.get('/', productController.showProduct)
-
-//GET /products: Devuelve todos los productos. Cada producto tendrá un enlace a su página de detalle. OK
-router.get('/products', productController.showProduct)
-
-//Nos lleva a cada producto por la categoria. OK
-router.get('/products/Proteinas',productController.showProductByCategory)
-router.get('/products/Vitaminas',productController.showProductByCategory)
-router.get('/products/Snacks',productController.showProductByCategory)
-router.get('/products/NutricionDeportiva',productController.showProductByCategory)
-router.get('/products/Otros',productController.showProductByCategory)
-
-
-
-// Devuelve el detalle de un producto. OK
-router.get('/products/:productId', productController.showProductById)
 
 // Devuelve el detalle de un producto en el dashboard. desde ahi puedo crear producto. OK
 router.get('/dashboard/new', productController.showNewProduct)
@@ -71,15 +70,7 @@ router.post('/dashboard/new', productController.createProduct)
 //Si clickamos en uno de ellos nos llevará a su página para poder actualizarlo o eliminarlo.OK
 router.get('/dashboard',productController.showDashboard)
 
-/*Bonus login*/
-router.post('/products/login', async (req,res)=> {
-    try {
-        const login = req.session.user
-        console.log(login)
-    } catch (error) {
-        
-    }
-})
+
 
 //Devuelve el detalle de un producto en el dashboard. OK
 router.get('/dashboard/:productId', productController.showDashboardById)
