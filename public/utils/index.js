@@ -29,7 +29,7 @@ function getNavBar() {
     <li><a href='/products/Snacks'>Snacks</a></li>
     <li><a href='/products/NutricionDeportiva'>Nutrición Deportiva</a></li>
     <li><a href='/products/Otros'>Otros</a></li>
-    <li><a href='/products/login'>Login</a></li>
+    <li><a href='/login'>Login</a></li>
   </ul>
 </nav>
 `;
@@ -100,7 +100,7 @@ function getNavBarDash() {
     <li><a href='/products/Snacks'>Snacks</a></li>
     <li><a href='/products/NutricionDeportiva'>Nutrición Deportiva</a></li>
     <li><a href='/products/Otros'>Otros</a></li>
-    <li><a href='/products/login'>Login</a></li>
+    <li><a href='/logout'>Logout</a></li>
     <li><a href='/dashboard/new'>Nuevo Producto</a></li>
   </ul>
 </nav>
