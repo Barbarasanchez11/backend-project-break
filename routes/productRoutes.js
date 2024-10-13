@@ -59,11 +59,11 @@ router.post('/login', async(req,res) => {
         res.json({ success: false });
     }
 })
-router.post( '/logout' ,(req,res)=> {
+/*router.post( '/logout' ,(req,res)=> {
     req.session.destroy();
     res.redirect('/products');
     console.log('has cerrado sesion')
-})
+})*/
 
 // Devuelve el detalle de un producto en el dashboard. desde ahi puedo crear producto. OK
 router.get('/dashboard/new', productController.showNewProduct)

@@ -1,11 +1,11 @@
 const express = require('express')
 const dbConnection = require('./config/db')
-require('dotenv').config
+require('dotenv').config()
 const path = require('path')
 const admin = require('firebase-admin')
-const serviceAccount = require('./config/firebase')
+const {serviceAccount} = require('./config/firebase.js')
 const cookieParser = require('cookie-parser')
-const cors = require('cors')
+
  
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)
@@ -13,7 +13,7 @@ admin.initializeApp({
 const app = express()
 const PORT = process.env.PORT || 8080
 
-app.use(cors())
+
 app.use(express.static(path.join(__dirname, 'public')));     
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
