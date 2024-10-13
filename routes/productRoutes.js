@@ -56,6 +56,7 @@ router.post('/login', async(req,res) => {
        
     } catch (error) {
         console.log(`Error ${error}`)
+        res.json({ success: false });
     }
 })
 router.post( '/logout' ,(req,res)=> {

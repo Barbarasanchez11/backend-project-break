@@ -100,7 +100,7 @@ function getNavBarDash() {
     <li><a href='/products/Snacks'>Snacks</a></li>
     <li><a href='/products/NutricionDeportiva'>Nutrición Deportiva</a></li>
     <li><a href='/products/Otros'>Otros</a></li>
-    <li><a href='/logout'>Logout</a></li>
+    <li><button type="submit">Logout</button></li>
     <li><a href='/dashboard/new'>Nuevo Producto</a></li>
   </ul>
 </nav>
