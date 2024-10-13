@@ -56,7 +56,7 @@ router.post('/login', async(req,res) => {
        
     } catch (error) {
         console.log(`Error ${error}`)
-        res.json({ success: false });
+        res.redirect('/register');
     }
 })
 /*router.post( '/logout' ,(req,res)=> {

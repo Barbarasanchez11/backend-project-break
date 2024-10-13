@@ -14,10 +14,17 @@ const firebaseConfig = {
   const app = initializeApp(firebaseConfig)
   const auth = getAuth()
 
-  const mensaje = document.getElementById('mensaje')
+ 
 
   const login = async(event) => {
     event.preventDefault()//al tener un botón submit es necesario
+    const mensaje = document.getElementById('mensaje')
+    mensaje.textContent = ''
+
+    if (!email || !password) {
+      messageContainer.textContent = 'Credenciales erróneas'; 
+      return; // Termina la función si falta información
+  }
     
     try {
 
@@ -42,11 +49,13 @@ const firebaseConfig = {
       if(data.success) {
         window.location.href = '/dashboard'
       }else {
-        mensaje.textContent = 'No se ha podido inciar sesión'
-        window.location.href= 'register.html'
+       
+        window.location.href= '/register'
       }
     } catch (error) {
-      console.log(`Nose ha podido inciar sesión${error}`)
+      console.log(`Nose ha podido inciar sesión${error.mensaje}`)
+      
+      window.location.href = '/register';
       
     }
   }
