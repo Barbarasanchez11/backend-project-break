@@ -63,7 +63,7 @@ function getProductCardsById(products) {
        <p>${product.flavour}</p>
        <p>${product.size}</p>
        <p>${product.price}</p>
-        <a href='/products'>Volver</a>
+        
       </div>
     `;
   }

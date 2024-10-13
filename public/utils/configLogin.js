@@ -19,17 +19,13 @@ const firebaseConfig = {
 
   const login = async(event) => {
     event.preventDefault()//al tener un botón submit es necesario
-    let user = ''
+    
     try {
 
       const email = document.getElementById('email').value
       const password = document.getElementById('password').value
 
-      if(!email || !password){
-        user.textContent = 'Introduce un email y contraseña correcto'
-        return
-      }
-
+     
       const userCredential = await signInWithEmailAndPassword(auth,email,password)
       const idToken = await userCredential.user.getIdToken()
 
@@ -56,4 +52,4 @@ const firebaseConfig = {
     }
   }
 
-  //document.getElementById('loginButton').addEventListener('click', login)
+  document.getElementById('loginButton').addEventListener('click', login)
