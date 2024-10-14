@@ -71,14 +71,14 @@ async showDashboard(req,res){
 
     const products = await Product.find();
     if(!products) throw new Error('No se encontraron productos')
-      let productHtml = products.map(product => `
+     /* let productHtml = products.map(product => `
         <div>
           <h2>${product.name}</h2>
           <img src='${product.image}' alt='${product.name}' style='width:100px;height:auto;' />
           <a href='/dashboard/${product._id}'>Ver</a>
         </div>
-      `).join('');
-    const html = baseHtml() + getNavBarDash()  + productHtml
+      `).join('');*/
+    const html = baseHtml() + getNavBarDash()  + getProductCards(products) 
     res.send(html);
     ; 
     } catch (error) {

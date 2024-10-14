@@ -187,21 +187,21 @@ function formNewProduct(){
   `
 
 <body>
-    <h1>Añadir Nuevo Producto</h1>
-    <form action="/dashboard/new" method="POST">
-        <div>
+    <h1 class="titleNew">Añadir Nuevo Producto</h1>
+    <form action="/dashboard/new" class="formNew" method="POST">
+        <div class="newName">
             <label for="name">Nombre</label>
             <input type="text" id="name" name="name" required>
         </div>
-        <div>
+        <div class="newDes">
             <label for="description">Descripción:</label>
             <textarea id="description" name="description" required></textarea>
         </div>
-        <div>
+        <div class="newImg">
             <label for="image">Imagen</label>
             <input type="text" id="image" name="image" required>
         </div>
-        <div>
+        <div class="newCategory">
             <label for="category">Categoría:</label>
             <select id="category" name="category" required>
                 <option value="Proteinas">Proteinas</option>
@@ -211,11 +211,11 @@ function formNewProduct(){
                 <option value="Otros">Otros</option>
             </select>
         </div>
-        <div>
+        <div class="newFlavour">
             <label for="flavour">Sabor:</label>
             <input type="text" id="flavour" name="flavour" required>
         </div>
-        <div>
+        <div class="newSize">
             <label for="size">Tamaño:</label>
             <select id="size" name="size" required>
                 <option value="250g">250g</option>
@@ -228,14 +228,14 @@ function formNewProduct(){
                 <option value="packde12">pack de 12</option>
             </select>
         </div>
-        <div>
+        <div class="newPrice">
             <label for="price">Precio:</label>
             <input type="number" id="price" name="price" required step="0.01">
         </div>
-        <button type="submit">Agregar Producto</button>
+        <button type="submit" class="newAdd">Agregar Producto</button>
         
     </form>
-    <a href="/dashboard"> Volver</a>
+    <a href="/dashboard"> </a>
    
 </body>
 </html>
