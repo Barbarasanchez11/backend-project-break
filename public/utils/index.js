@@ -85,7 +85,7 @@ function getProductCardsById(products) {
 }
 
 function getProductCardsDash(products) {
-  let html = '<div class="roductContainer">'; 
+  let html = '<div class="productContainer">'; 
   for (let product of products) {
     html += `
       <div class='productCard'>
@@ -96,7 +96,7 @@ function getProductCardsDash(products) {
        <p>${product.flavour}</p>
        <p>${product.size}</p>
        <p>${product.price}</p>
-        <a href='/dashboard'>Volver</a>
+        
       </div>
     `;
   }
