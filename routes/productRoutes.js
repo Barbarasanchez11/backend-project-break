@@ -36,10 +36,7 @@ router.get('/login', productController.login)
 router.post('/login', productController.loginUser)
 
 //logout
-router.post( '/logout' ,async(req,res)=> {
-    res.clearCookie('token')
-    res.redirect('/products')
-})
+router.post( '/logout' ,productController.logout)
 
 
 

@@ -241,6 +241,11 @@ async loginUser(req,res){
       console.log(`Error ${error}`)
       res.redirect('/register');
   }
+},
+
+async logout(req,res){
+  res.clearCookie('token')
+  res.redirect('/products')
 }
 
 }

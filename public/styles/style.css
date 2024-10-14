@@ -45,26 +45,87 @@ table {
 
 /*mis css*/
 
+body {
+	background-color: white;
+}
+
 header {
 	display: flex;
 	justify-content: center;
 	text-align: center;
 	padding: 20px;
+	background-color: rgb(14, 62, 14) ;
 }
 
 
 nav {
-    display:inline;
-	justify-content:inline
+    display:flex;
+	justify-content: center;
+	text-decoration: none;
+	padding: 12px;
+
 }
-div {
-	display: inline;
-	
-}
+
 nav ul {
     display:flex;
+	text-decoration: none;
 	padding: 10px
 }
+
 nav ul li{
-    text-decoration: none;
+	list-style:none
+}
+
+nav ul li a{
+	display:inline;
+	justify-content: center;
+	text-decoration: none;
+	color: rgb(14, 62, 14);
+	padding: 20px;
+	cursor: pointer;
+	font-size: 22px;
+}
+
+.productContainer {
+	
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	gap:24px;
+	padding-top: 150px
+	
+}
+
+.productCard {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	justify-content: space-between;
+	border-radius: 6px;
+	background-color: rgb(14, 62, 14);
+	text-align: center;
+	font-size: 16px;
+	color: white;
+	max-width: 300px;
+	width: calc(33.33% - 24px);
+	
+}
+ .productCard h2 {
+	padding-bottom: 20px;
+	padding-top: 20px;
+	font-size: 20px;
+ }
+
+.productCard img {
+	width: 200px;
+	height: 200px;
+}
+
+.productCard a {
+	text-decoration: none;
+	font-size: 16px;
+	color: white;
+	padding-top: 12px;
+	padding-bottom: 8px;
 }

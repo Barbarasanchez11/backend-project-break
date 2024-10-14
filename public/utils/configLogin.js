@@ -56,26 +56,16 @@ const firebaseConfig = {
 
   document.getElementById('loginButton').addEventListener('click', login)
 
- 
-const logout = async (event) => {
-  event.preventDefault()
-  try {
-      await auth.signOut(); // Cierra sesión en Firebase
-      const response = await fetch('/logout', {
-          method: 'POST',
-          credentials: 'include'
-      });
-
-      if (response.ok) {
-          window.location.href = '/products'; // Redirigir después de hacer logout
-      } else {
-          console.error('Error al cerrar sesión:', await response.text());
-      }
-  } catch (error) {
-      console.error('Error al cerrar sesión:', error);
-  }
+  const logout = async () => {
+    try {
+        await auth.signOut(); // Cierra sesión en Firebase
+        const response = await fetch('/logout', {
+            method: 'POST',
+            credentials: 'include'
+        });
+        
+        window.location.href = '/products'; 
+    } catch (error) {
+        console.error('Error al cerrar sesión:', error);
+    }
 };
-
-document.getElementById('logout-button').addEventListener('click', () => {
-  logout();
-});

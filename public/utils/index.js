@@ -13,7 +13,7 @@ function baseHtml() {
 </head>
 <body>
     <header>
-        <h1>Tienda de Productos</h1>
+        
     </header>
 </body>
 </html>
@@ -36,12 +36,12 @@ function getNavBar() {
 }
 
 function getProductCards(products) {
-  let html = '<div id="product-container">'; 
+  let html = '<div class="productContainer">'; 
   for (let product of products) {
     html += `
       <div class='productCard'>
         <h2>${product.name}</h2>
-        <img src='${product.image}' alt='${product.name}' style='width:100px;height:auto;' />
+        <img src='${product.image}' alt='${product.name}'  />
         <a href='/products/${product._id}'>Ver</a>
         
       </div>
