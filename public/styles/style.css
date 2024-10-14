@@ -331,3 +331,52 @@ input[type="text"], input[type="number"], textarea, select {
 	border-radius: 4px; 
 	margin-top: 50px;
 }
+
+/*Dashboard*/
+
+.productContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    padding-top: 150px;
+}
+
+.productCard {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 10px;
+    background-color: rgb(68, 132, 68);
+    text-align: center;
+    font-size: 16px;
+    color: rgb(231, 189, 112);
+    max-width: 300px;
+    width: calc(33.33% - 24px);
+}
+
+.productCard h2 {
+    padding-bottom: 20px;
+    padding-top: 20px;
+    font-size: 20px;
+}
+
+.productCard img {
+    width: 200px; /* O ajustar el tamaño a 100px si se quiere */
+    height: auto; /* Mantener la proporción de la imagen */
+}
+
+.productCard a {
+    text-decoration: none;
+    font-size: 16px;
+    color: rgb(231, 189, 112);
+    padding-top: 12px;
+    padding-bottom: 8px;
+}
+
+.productCard p {
+    padding-top: 6px;
+    padding-bottom: 6px; 
+}

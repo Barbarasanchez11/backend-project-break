@@ -51,6 +51,20 @@ function getProductCards(products) {
   return html;
 }
 
+function getProductsHtml(products) {
+  return `
+    <div class="productContainer">
+      ${products.map(product => `
+        <div class="productCard">
+          <h2 class="productDash">${product.name}</h2>
+          <img src='${product.image}' alt='${product.name}' />
+          <a href='/dashboard/${product._id}'>Ver</a>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
 function getProductCardsById(products) {
   let html = '<div class="productContainer">'; 
   for (let product of products) {
@@ -117,8 +131,9 @@ function getNavBarDash() {
     <li><a href='/products/Snacks'>Snacks</a></li>
     <li><a href='/products/NutricionDeportiva'>Nutrición Deportiva</a></li>
     <li><a href='/products/Otros'>Otros</a></li>
-    <li><a  id='logout'>Cerrar sesión</a></li>
     <li><a href='/dashboard/new'>Nuevo Producto</a></li>
+    <li><a  id='logout'>Log Out</a></li>
+  
   </ul>
 </nav>
 <script>
@@ -147,14 +162,15 @@ function getNavBarDashInd() {
     <li><a href='/products/Snacks'>Snacks</a></li>
     <li><a href='/products/NutricionDeportiva'>Nutrición Deportiva</a></li>
     <li><a href='/products/Otros'>Otros</a></li>
+     <li><a href='/dashboard/new'>Nuevo Producto</a></li>
     <li><a href='/products/logout'>Logout</a></li>
-    <li><a href='/dashboard/new'>Nuevo Producto</a></li>
+   
   </ul>
 </nav>
 `;
 }
 
-function navBar(isFromDashboard){
+/*function navBar(isFromDashboard){
   const categories = ["Proteinas", "Vitaminas", "Snacks", "NutricionDeportiva", "Otros"];
   
   const createListItem = (cat) => {
@@ -179,7 +195,7 @@ function navBar(isFromDashboard){
       </div>
     </nav>
   `;
-}
+}*/
 
  
 function formNewProduct(){
@@ -382,7 +398,7 @@ function deleteProd(product) {
   return htmlDelete;
 }
 
-module.exports =  {baseHtml,getNavBar,getProductCardsById,getNavBarDash,getNavBarDashInd,getProductCards,getProductCardsDash,formNewProduct,formEditProduct,deleteProd}
+module.exports =  {baseHtml,getNavBar,getProductCardsById,getProductsHtml,getNavBarDash,getNavBarDashInd,getProductCards,getProductCardsDash,formNewProduct,formEditProduct,deleteProd}
 /*
 const baseHtml = `
 <!DOCTYPE html>

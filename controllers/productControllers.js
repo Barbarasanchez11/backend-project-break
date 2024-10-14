@@ -1,5 +1,5 @@
 const Product = require('../models/Product')
-const {baseHtml, getNavBar, getProductCards, getProductCardsById,getNavBarDash,getNavBarDashInd,getProductCardsDash,formNewProduct, formEditProduct,deleteProd} = require('../public/utils/index')
+const {baseHtml, getNavBar, getProductCards, getProductsHtml,getProductCardsById,getNavBarDash,getNavBarDashInd,getProductCardsDash,formNewProduct, formEditProduct,deleteProd} = require('../public/utils/index')
 const firebase = require('../config/firebase')
 const path=require('path')
 const admin = require('firebase-admin')
@@ -66,19 +66,14 @@ async showNewProduct(req,res){
    } 
 },
 
+
 async showDashboard(req,res){
   try {
 
     const products = await Product.find();
     if(!products) throw new Error('No se encontraron productos')
-      let productHtml = products.map(product => `
-        <div>
-          <h2>${product.name}</h2>
-          <img src='${product.image}' alt='${product.name}/>
-          <a href='/dashboard/${product._id}'>Ver</a>
-        </div>
-      `).join('');
-    const html = baseHtml() + getNavBarDash()  + productHtml
+     
+    const html = baseHtml() + getNavBarDash()  + getProductsHtml(products)
     res.send(html);
     ; 
     } catch (error) {
