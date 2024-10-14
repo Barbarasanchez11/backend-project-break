@@ -141,7 +141,8 @@ nav ul li a{
 
 .loginTitle {
 	display: flex;
-	padding-top: 10px;
+	justify-content: center;
+	padding-top: 100px;
 	padding-bottom: 50px;
 	font-size: 40px;
 	color:rgb(68, 132, 68)
@@ -174,6 +175,52 @@ nav ul li a{
 
 .loginButton {
     width: 150px; 
+    padding: 10px; 
+    margin-top: 20px; 
+    border: 1px solid rgb(231, 189, 112); 
+    background-color: rgb(68, 132, 68); 
+    color:rgb(231, 189, 112); 
+    border-radius: 5px; 
+    cursor: pointer; 
+}
+
+/*Register*/
+
+.registerTitle{
+	display: flex;
+	justify-content: center;
+	padding-top: 100px;
+    padding-bottom: 50px;
+    font-size: 40px;
+    color: rgb(68, 132, 68);
+}
+
+.registerContainer {
+	display: flex;
+	justify-content: center;
+	
+}
+
+.registerForm {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.emailRegister, .passwordRegister {
+	justify-content: center;
+	flex-direction: column;
+	width:300px;
+	padding: 10px;
+	margin: 10px;
+	border: 1px solid rgb(68, 132, 68);
+	border-radius: 5px;
+	
+}
+
+.registerButton {
+
+	width: 150px; 
     padding: 10px; 
     margin-top: 20px; 
     border: 1px solid rgb(231, 189, 112); 

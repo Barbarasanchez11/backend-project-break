@@ -7,12 +7,14 @@
     <link rel="stylesheet" href="../styles/style.css">
 </head>
 <body>
-    <h1>Register</h1>
-    <form action="/register" method="POST">
-      <input type="email" name="email"  placeholder="Introduce tu email" required>
-      <input type="password" name="password"  placeholder="Introduce tu contraseña" required>
-      <button type="submit">Regístrate</button>
-    </form>
-    
+    <h1 class="registerTitle">Register</h1>
+    <div class="registerContainer">
+      <form action="/register"  class="registerForm" method="POST">
+        <input type="email" name="email"  class="emailRegister" placeholder="Introduce tu email" required>
+        <input type="password" name="password" class="passwordRegister"  placeholder="Introduce tu contraseña" required>
+        <button class="registerButton" type="submit">Regístrate</button>
+      </form>
+    </div>
 </body>
 </html>
+
