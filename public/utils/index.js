@@ -118,12 +118,12 @@ function getNavBarDash() {
     <li><a href='/products/Snacks'>Snacks</a></li>
     <li><a href='/products/NutricionDeportiva'>Nutrición Deportiva</a></li>
     <li><a href='/products/Otros'>Otros</a></li>
-    <li><button id="logout-button">Cerrar sesión</button></li>
+    <li><a  id='logout'>Cerrar sesión</a></li>
     <li><a href='/dashboard/new'>Nuevo Producto</a></li>
   </ul>
 </nav>
 <script>
-    document.getElementById('logout-button').addEventListener('click', async () => {
+    document.getElementById('logout').addEventListener('click', async () => {
         try {
             const response = await fetch('/logout', {
                 method: 'POST',

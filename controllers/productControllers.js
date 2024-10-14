@@ -120,7 +120,7 @@ async showDashboardById(req,res) {
    if(!products) {
       return res.status(404).json({message: 'El producto con ese Id no existe'})
    }
-   const html = baseHtml() + getNavBarDashInd() + getProductCardsDash([products]) +
+   const html = baseHtml() + getNavBarDash() + getProductCardsDash([products]) +
    `<a href='/dashboard/${id}/edit'>Editar</a>` +  `<button id="delete-button">Borrar</button>
    <script>
        document.getElementById('delete-button').addEventListener('click', async () => {
