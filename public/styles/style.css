@@ -429,20 +429,26 @@ input[type="text"], input[type="number"], textarea, select {
     }
 
     .productCard {
-        width: 100%;
+        width: 100%; 
         max-width: none; 
-        margin-bottom: 20px; 
     }
 
-   
+    nav ul {
+        flex-direction: column; 
+    }
+
+    nav ul li {
+        margin: 5px 0; 
+    }
+
     .editDelete {
-        flex-direction: column;
+        display: flex;
+        flex-direction: column; 
         align-items: center; 
     }
 
     .editDash, .deleteButton {
         width: 100%; 
-        max-width: 300px;
-        margin-top: 10px; 
+        max-width: 200px; 
     }
 }
