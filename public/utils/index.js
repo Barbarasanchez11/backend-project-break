@@ -52,7 +52,7 @@ function getProductCards(products) {
 }
 
 function getProductCardsById(products) {
-  let html = '<div id="product-container">'; 
+  let html = '<div class="productContainer">'; 
   for (let product of products) {
     html += `
       <div class='productCard'>
@@ -60,10 +60,9 @@ function getProductCardsById(products) {
        <p>${product.description}</p>
        <img src='${product.image}' alt='${product.name}'>
        <p>${product.category}</p>
-       <p>${product.flavour}</p>
-       <p>${product.size}</p>
-       <p>${product.price}</p>
-        
+       <p><strong>Sabor: </strong>${product.flavour}</p>
+       <p><strong>Tamaño: </strong>${product.size}</p>
+       <p><strong>Precio: </strong>${product.price}</p>
       </div>
     `;
   }
@@ -72,7 +71,7 @@ function getProductCardsById(products) {
 }
 
 function getProductCardsDash(products) {
-  let html = '<div id="product-container">'; 
+  let html = '<div class="roductContainer">'; 
   for (let product of products) {
     html += `
       <div class='productCard'>
