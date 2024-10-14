@@ -91,6 +91,24 @@ function getProductCardsDash(products) {
   return html;
 }
 
+/*function getNavBarDash() {
+  return `
+<nav>
+  <ul>
+    <li><a href='/products/Proteinas'>Proteinas</a></li>
+    <li><a href='/products/Vitaminas'>Vitaminas</a></li>
+    <li><a href='/products/Snacks'>Snacks</a></li>
+    <li><a href='/products/NutricionDeportiva'>Nutrición Deportiva</a></li>
+    <li><a href='/products/Otros'>Otros</a></li>
+   <button id="logout-button">Cerrar sesión</button>
+
+    <li><a href='/dashboard/new'>Nuevo Producto</a></li>
+  </ul>
+</nav>
+`;
+}
+*/
+
 function getNavBarDash() {
   return `
 <nav>
@@ -100,13 +118,27 @@ function getNavBarDash() {
     <li><a href='/products/Snacks'>Snacks</a></li>
     <li><a href='/products/NutricionDeportiva'>Nutrición Deportiva</a></li>
     <li><a href='/products/Otros'>Otros</a></li>
-    <li><button type="submit">Logout</button></li>
+    <li><button id="logout-button">Cerrar sesión</button></li>
     <li><a href='/dashboard/new'>Nuevo Producto</a></li>
   </ul>
 </nav>
+<script>
+    document.getElementById('logout-button').addEventListener('click', async () => {
+        try {
+            const response = await fetch('/logout', {
+                method: 'POST',
+                credentials: 'include'
+            });
+            if (response.redirected) {
+                window.location.href = response.url;
+            }
+        } catch (error) {
+            console.error('Error al cerrar sesión:', error);
+        }
+    });
+</script>
 `;
 }
-
 function getNavBarDashInd() {
   return `
 <nav>

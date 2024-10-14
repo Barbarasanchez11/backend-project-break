@@ -2,6 +2,9 @@ const Product = require('../models/Product')
 const {baseHtml, getNavBar, getProductCards, getProductCardsById,getNavBarDash,getNavBarDashInd,getProductCardsDash,formNewProduct, formEditProduct,deleteProd} = require('../public/utils/index')
 const firebase = require('../config/firebase')
 const path=require('path')
+const admin = require('firebase-admin')
+const auth = admin.auth();
+
 
 const productController = {
 
@@ -36,11 +39,14 @@ const productController = {
 
 async showProductByCategory(req,res){
     const path = req.path   
-    const category = path.split('/products/').join('')//se divide en ['', 'Proteinas']con join se convierte en Proteinas 
-    
+    const category = path.split('/products/').join('')
+   
+   //const fromDashboard = req.session.fromDashboard || false;
     try{
         const products = [await Product.findOne({category})]
-        const html = baseHtml() + getNavBar() + getProductCards(products) + `<a href='/products'>Volver</a>`
+        //let cardsCategories = req.session.user ? getProductCards(products,true) : getProductCards(products, false)
+        const html = baseHtml() +  getNavBar() + getProductCards(products) 
+        // `<a href='${fromDashboard ? '/dashboard' : '/products'}'>Volver</a>`
         
         
         res.send(html)
@@ -203,7 +209,39 @@ async deleteProduct(req, res) {
 
 /* Bonus Login*/
 
+async register(req,res){
+  res.sendFile(path.join(__dirname, '../public/views', 'register.html'));
+},
 
+async registerUser (req,res){
+  const { email, password } = req.body;
+  try {
+      await auth.createUser({ email, password });
+      res.redirect('/login');
+  } catch (error) {
+      console.error(`Error interno: ${error.message}`);
+      res.redirect('/register');
+  }
+},
+
+async login (req,res) {
+  res.sendFile(path.join(__dirname, '../public/views', 'login.html'))
+},
+
+async loginUser(req,res){
+  const {idToken} = req.body
+ 
+  try {
+     
+      await auth.verifyIdToken(idToken)
+      res.cookie('token', idToken, {httpOnly: true, secure: false})
+      res.json({success : true})
+     
+  } catch (error) {
+      console.log(`Error ${error}`)
+      res.redirect('/register');
+  }
+}
 
 }
 
