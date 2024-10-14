@@ -71,14 +71,14 @@ async showDashboard(req,res){
 
     const products = await Product.find();
     if(!products) throw new Error('No se encontraron productos')
-     /* let productHtml = products.map(product => `
+      let productHtml = products.map(product => `
         <div>
           <h2>${product.name}</h2>
-          <img src='${product.image}' alt='${product.name}' style='width:100px;height:auto;' />
+          <img src='${product.image}' alt='${product.name}/>
           <a href='/dashboard/${product._id}'>Ver</a>
         </div>
-      `).join('');*/
-    const html = baseHtml() + getNavBarDash()  + getProductCards(products) 
+      `).join('');
+    const html = baseHtml() + getNavBarDash()  + productHtml
     res.send(html);
     ; 
     } catch (error) {
@@ -139,7 +139,6 @@ async showDashboardById(req,res) {
            }
        });
    </script>`;
-   
 
    res.send(html)
   } catch (error) {

@@ -246,8 +246,8 @@ function formNewProduct(){
 function formEditProduct(req, product) {
   const htmlEdit = `
   <body>
-    <h1>Editar producto</h1>
-    <form action="/dashboard/${product._id}" method="POST">
+    <h1 class="editTitle">Editar producto</h1>
+    <form action="/dashboard/${product._id}" method="POST" class="editContainer">
      
         <div>
             <label for="name">Nombre</label>
@@ -298,9 +298,9 @@ function formEditProduct(req, product) {
         </div>
         
         
-         <button type="submit" id="save-button">Guardar</button>
+         <button type="submit" id="save-button" class="save">Guardar</button>
        
-         <a href="/dashboard" id="cancel">Cancelar</a>
+         <a href="/dashboard" id="cancel" class="cancel">Cancelar</a>
   
      
     </form>

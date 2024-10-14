@@ -254,13 +254,75 @@ nav ul li a{
 	width: 100%;
 }
 
+label {
+	color: rgb(68, 132, 68);
+}
+
 input[type="text"], input[type="number"], textarea, select {
 	width: 100%; 
 	padding: 10px;
 	border: 1px solid  rgb(68, 132, 68); 
 	border-radius: 4px; 
+	color: rgb(68, 132, 68);
 }
 button.newAdd {
+	padding: 10px 15px; 
+	border: 1px solid; 
+	background-color: rgb(68, 132, 68); 
+	color: rgb(231, 189, 112); 
+	cursor: pointer; 
+	border-radius: 4px; 
+	margin-top: 50px;
+}
+
+/*editar producto*/
+
+.editTitle {
+	display: flex;
+	justify-content: center;
+	color: rgb(68, 132, 68);
+	font-size: 30px;
+	padding: 20px;
+}
+
+.editContainer {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	text-align: center;
+	width: 300px;
+	margin: 0 auto;
+}
+
+.editContainer div {
+	margin-bottom: 16px;
+	width: 100%;
+}
+
+label {
+	color: rgb(68, 132, 68);
+}
+
+input[type="text"], input[type="number"], textarea, select {
+	width: 100%; 
+	padding: 10px;
+	color: rgb(68, 132, 68);
+	border: 1px solid  rgb(68, 132, 68); 
+	border-radius: 4px; 
+}
+
+.save {
+	padding: 10px 15px; 
+	border: 1px solid; 
+	background-color: rgb(68, 132, 68); 
+	color: rgb(231, 189, 112); 
+	cursor: pointer; 
+	border-radius: 4px; 
+	margin-top: 50px;
+}
+
+.cancel {
+	text-decoration: none;
 	padding: 10px 15px; 
 	border: 1px solid; 
 	background-color: rgb(68, 132, 68); 
