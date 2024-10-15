@@ -24,21 +24,20 @@ const apiProducts = {
         res.status(500).send(error)
      }
 
+    },
+
+    async showProductById(req,res){
+        const { _id } = req.params;
+        try {                                                                     
+            const product = await Product.findById(_id);              
+            res.send(product);
+        } catch (error) {
+            res.status(500).send(error);
+        }
     }
 
 }
 
-/*const apiProductController ={
 
-    async apiShowProducts (req,res){
-        try {
-            const products= await Product.find()
-            res.json(products);
-        } catch (error) {
-            res.status(500).json({ message: 'Error obteniendo productos' });
-        }
-    }
-
-}*/
 
 module.exports = apiProducts

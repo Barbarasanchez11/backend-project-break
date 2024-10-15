@@ -5,7 +5,8 @@ const apiProducts = require('../controllers/apiProductController')
 
 
 router.post('/products', apiProducts.createProduct)//OK
-router.get('/products', apiProducts.showProducts)
+router.get('/products', apiProducts.showProducts)//OK
+router.get('/products/:_id', apiProducts.showProductById)
 
 
 
