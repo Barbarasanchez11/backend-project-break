@@ -46,6 +46,12 @@ router.get('/dashboard/new',authMiddleware, productController.showNewProduct)
 // Devuelve el formulario para subir un artículo nuevo y puedo crearlo.OK
 router.post('/dashboard/new',authMiddleware, productController.createProduct)
 
+router.get('/dashboard/Proteinas', productController.showProductByCategoryFromDashboard);
+router.get('/dashboard/Vitaminas', productController.showProductByCategoryFromDashboard);
+router.get('/dashboard/Snacks', productController.showProductByCategoryFromDashboard);
+router.get('/dashboard/NutricionDeportiva', productController.showProductByCategoryFromDashboard);
+router.get('/dashboard/Otros', productController.showProductByCategoryFromDashboard);
+
 // Devuelve el dashboard del administrador. En el dashboard aparecerán todos los artículos que se hayan subido. 
 //Si clickamos en uno de ellos nos llevará a su página para poder actualizarlo o eliminarlo.OK
 router.get('/dashboard',authMiddleware,productController.showDashboard)

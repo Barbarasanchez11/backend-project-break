@@ -37,23 +37,18 @@ const productController = {
   }
 },
 
-async showProductByCategory(req,res){
-    const path = req.path   
-    const category = path.split('/products/').join('')
-   
-   //const fromDashboard = req.session.fromDashboard || false;
-    try{
-        const products = [await Product.findOne({category})]
-        //let cardsCategories = req.session.user ? getProductCards(products,true) : getProductCards(products, false)
-        const html = baseHtml() +  getNavBar() + getProductCards(products) 
-        // `<a href='${fromDashboard ? '/dashboard' : '/products'}'>Volver</a>`
-        
-        
-        res.send(html)
-    }catch(error){
-        res.status(500).json({message : 'Se produjo un error al intentar obtener el producto'})
-    }
-    
+async showProductByCategory(req, res) {
+  
+  const path = req.path;
+  const category = path.split('/products/').join('');
+
+  try {
+      const products = await Product.find({ category });
+      const html = baseHtml() + getNavBar() + getProductCards(products);
+      res.send(html);
+  } catch (error) {
+      res.status(500).json({ message: 'Se produjo un error al intentar obtener el producto' });
+  }
 },
 async showNewProduct(req,res){
   try {
@@ -81,6 +76,18 @@ async showDashboard(req,res){
     res.status(500).send('Error al obtener los productos') 
     }
     
+},
+async showProductByCategoryFromDashboard(req, res) {
+  const path = req.path;
+  const category = path.split('/dashboard/').join(''); // Cambia la ruta según sea necesario
+
+  try {
+      const products = await Product.find({ category }); // Busca todos los productos de esa categoría
+      const html = baseHtml() + getNavBar() + getProductCardsDash(products);
+      res.send(html);
+  } catch (error) {
+      res.status(500).json({ message: 'Se produjo un error al intentar obtener el producto' });
+  }
 },
 
 async createProduct(req,res){

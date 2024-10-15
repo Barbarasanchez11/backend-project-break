@@ -126,11 +126,11 @@ function getNavBarDash() {
   return `
 <nav>
   <ul>
-    <li><a href='/products/Proteinas'>Proteinas</a></li>
-    <li><a href='/products/Vitaminas'>Vitaminas</a></li>
-    <li><a href='/products/Snacks'>Snacks</a></li>
-    <li><a href='/products/NutricionDeportiva'>Nutrición Deportiva</a></li>
-    <li><a href='/products/Otros'>Otros</a></li>
+    <li><a href='/dashboard/Proteinas'>Proteinas</a></li>
+    <li><a href='/dashboard/Vitaminas'>Vitaminas</a></li>
+    <li><a href='/dashboard/Snacks'>Snacks</a></li>
+    <li><a href='/dashboard/NutricionDeportiva'>Nutrición Deportiva</a></li>
+    <li><a href='/dashboard/Otros'>Otros</a></li>
     <li><a href='/dashboard/new'>Nuevo Producto</a></li>
     <li><a  id='logout'>Log Out</a></li>
   
