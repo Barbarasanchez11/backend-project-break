@@ -1,36 +1,38 @@
 module.exports = {
     components: {
         schemas: {
-            products: {
+            Products: {
                 type: 'object',
                 properties: {
                     _id: {
-                        type: 'ObtectId',
-                        description: 'product identificacion number',
+                        type: 'objectId',
+                        description: 'product identification number',
                         example: '6701611964e00b3394c82ad6'
                     },
                     name: {
-                        type: 'String',
+                        type: 'string',
                         description: 'name of product',
                         example: 'proteina'
                     },
                     description: {
-                        type: 'String',
+                        type: 'string',
                         description: 'description of the product',
                         example: 'proteina vegana de chocolate'
                     },
-                    Image: {
-                        type: 'String',
-                        description: 'image of the product',
-                        example: 'https://www.bulk.com/media/catalog/product/V/S/VSER_VPPO_CPEA_Main_Image_45c8.jpg?auto=webp&quality=80&crop=false&fit=cover&width=1080&resize-filter=bicubic'
-                    },
+                   
                     category: {
-                        type: 'String',
+                        type: 'string',
                         description: 'category of the product',
-                        example: 'Proteina'
+                        example: 'Proteinas'
                     },
+                    flavour: {
+                        type: 'string',
+                        description: 'Flavour of product',
+                        example: 'Chocolate'
+                    },
+
                     size: {
-                        type: 'String',
+                        type: 'string',
                         description: 'size of the product',
                         example: '250g'
                     },
@@ -40,52 +42,73 @@ module.exports = {
                         example: 9.99
                     },
                     stock: {
-                        type: 'Number',
+                        type: 'number',
                         description: 'stock of the products',
                         example: 100
                     },
                 },
             },
-        },  newProduct: {
-              type: 'object',
-              properties: {
-                name: {
-                    type: 'String',
-                    description: 'name of product',
-                    example: 'proteina'
-                },
-                description: {
-                    type: 'String',
-                    description: 'description of the product',
-                    example: 'proteina vegana de chocolate'
-                },
-                Image: {
-                    type: 'String',
-                    description: 'image of the product',
-                    example: 'https://www.bulk.com/media/catalog/product/V/S/VSER_VPPO_CPEA_Main_Image_45c8.jpg?auto=webp&quality=80&crop=false&fit=cover&width=1080&resize-filter=bicubic'
-                },
-                category: {
-                    type: 'String',
-                    description: 'category of the product',
-                    example: 'Proteina'
-                },
-                size: {
-                    type: 'String',
-                    description: 'size of the product',
-                    example: '250g'
-                },
-                price: {
-                    type: 'decimal',
-                    description: 'price of the product',
-                    example: 9.99
-                },
-                stock: {
-                    type: 'Number',
-                    description: 'stock of the products',
-                    example: 100
-                },
-              }
+            ProductNew:{
+                type: 'object',
+                properties: {
+                    name: {
+                        type: 'string',
+                        description: 'name of product',
+                        example: 'proteina'
+                    },
+                    description: {
+                        type: 'string',
+                        description: 'description of the product',
+                        example: 'proteina vegana de chocolate'
+                    },
+                   
+                    category: {
+                        type: 'string',
+                        description: 'category of the product',
+                        example: 'Proteinas'
+                    },
+                    flavour: {
+                        type: 'string',
+                        description: 'Flavour of product',
+                        example: 'Chocolate'
+                    },
+                    size: {
+                        type: 'string',
+                        description: 'size of the product',
+                        example: '250g'
+                    },
+                    price: {
+                        type: 'decimal',
+                        description: 'price of the product',
+                        example: 9.99
+                    },
+                    stock: {
+                        type: 'number',
+                        description: 'stock of the products',
+                        example: 100
+                    },
+                }
+            },
+            ProductId: {
+                type: 'object',
+                properties: {
+                    _id: {
+                      type: 'objectId',
+                       description: 'product identification number',
+                        example: '6701611964e00b3394c82ad6'
+                    }
+                }
+            },
+            ProductCategory: {
+                type: 'object',
+                properties:{
+                    type: 'string',
+                    description: 'Product category',
+                    example: 'Proteinas'
+                }
+            }
+        },  
+    },
              
-        }
-    }
-}
+ }
+

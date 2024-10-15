@@ -15,7 +15,7 @@ const ProductSchema = new mongoose.Schema ({
 
     image: {
         type: String,
-        required:true
+        required:false//se ueden crear productos sin foto en el caso de que no se tengan
     },
 
     category: {

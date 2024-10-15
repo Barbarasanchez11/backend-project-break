@@ -5,6 +5,9 @@ const path = require('path')
 const admin = require('firebase-admin')
 const {serviceAccount} = require('./config/firebase.js')
 const cookieParser = require('cookie-parser')
+const swaggerUI =require('swagger-ui-express')
+const docs = require('./docs/index.js')
+const apiRoutes= require('./routes/apiRoutes')
 
  
 admin.initializeApp({
@@ -22,6 +25,9 @@ app.use(cookieParser())
 
 const productRoutes = require('./routes/productRoutes')
 app.use('/', productRoutes)
+
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(docs))
+app.use('/api', apiRoutes);
 
 dbConnection()
 
