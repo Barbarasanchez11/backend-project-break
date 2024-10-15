@@ -52,7 +52,7 @@ async showProductByCategory(req, res) {
 },
 async showNewProduct(req,res){
   try {
-    const html =  baseHtml() + getNavBar() + formNewProduct()
+    const html =  baseHtml() + getNavBarDash() + formNewProduct()
     res.send(html)
     
    } catch (error) {
@@ -83,7 +83,7 @@ async showProductByCategoryFromDashboard(req, res) {
 
   try {
       const products = await Product.find({ category }); // Busca todos los productos de esa categoría
-      const html = baseHtml() + getNavBar() + getProductCardsDash(products);
+      const html = baseHtml() + getNavBarDash() + getProductCardsDash(products);
       res.send(html);
   } catch (error) {
       res.status(500).json({ message: 'Se produjo un error al intentar obtener el producto' });

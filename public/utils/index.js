@@ -24,6 +24,7 @@ function getNavBar() {
   return `
 <nav>
   <ul>
+    <li><a href="/products">Productos</a></li>
     <li><a href='/products/Proteinas'>Proteinas</a></li>
     <li><a href='/products/Vitaminas'>Vitaminas</a></li>
     <li><a href='/products/Snacks'>Snacks</a></li>
@@ -126,6 +127,7 @@ function getNavBarDash() {
   return `
 <nav>
   <ul>
+    <li><a href="/dashboard">Productos</a></li>
     <li><a href='/dashboard/Proteinas'>Proteinas</a></li>
     <li><a href='/dashboard/Vitaminas'>Vitaminas</a></li>
     <li><a href='/dashboard/Snacks'>Snacks</a></li>
