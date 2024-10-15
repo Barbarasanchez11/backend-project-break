@@ -1,5 +1,6 @@
 const { request } = require("express");
 const Product = require("../models/Product");
+const { put } = require("../routes/apiRoutes");
 
 module.exports = {
     paths: {
@@ -15,7 +16,7 @@ module.exports = {
                     content: {
                         'application/json': {
                             schema: {
-                                $ref: '#/components/schemas/Product'
+                                $ref: '#/components/schemas/Products'
                             }
                         }
                     }
@@ -45,29 +46,85 @@ module.exports = {
                 }
             }
         },
-        '/api/products/{_id}': {
-            get: {
+        '/api/products/edit/{productId}': {
+            put: {
                 tags: {
-                    Product: 'Get product by id'
+                    Product: 'Edit product'
                 },
-                description: 'Get product by id',
-                operationId: 'getProductById',
+                description: 'Edit product',
+                operationId: 'editProductById',
                 parameters: [{
-                    name: '_id',
+                    name: 'productId',
                     in: 'path',
-                    schema: {
-                        $ref: '#/components/schemas/ProductId'
-                    },
-                    description: 'Id of a product'
+                    description: 'product to be update'
+                   
                 }],
+                requestBody: {
+                    content: {
+                        'application/json':{
+                            schema: {$ref: '#/components/schemas/ProductId'}
+                        },
+                        example: {
+                            
+                                "_id": "670ea2d6c890cf4325bf8812",
+                                "name": "proteina",
+                                "description": "proteina vegana de chocolate",
+                                "category": "Proteinas",
+                                "flavour": "Chocolate",
+                                "size": "250g",
+                                "price": 9.99,
+                                "stock": 100
+                              
+                        }
+                    },
+                },
+                
                 responses: {
                     200: {
                         description: 'Product found successfully',
-                        content: {
-                            'application/json':{
-                                schema: {$ref: '#/components/schemas/Products'}
-                            },
+                    },
+                    500: {
+                        description: 'Server error'
+                    }
+                }
+            }
+        },
+        '/api/products/delete/{productId}': {
+            delete:{
+                tags: {
+                    Products: 'Delete product'
+                },
+                description: 'Delete product',
+                operationId: 'deleteProductById',
+                parameters: [{
+                    name: 'productId',
+                    in: 'path',
+                    description: 'product to be delete'
+                   
+                }],
+                requestBody: {
+                    content: {
+                        'application/json':{
+                            schema: {$ref: '#/components/schemas/ProductDelete'}
                         },
+                        example: {
+                            
+                                "_id": "670ea2d6c890cf4325bf8812",
+                                "name": "proteina",
+                                "description": "proteina vegana de chocolate",
+                                "category": "Proteinas",
+                                "flavour": "Chocolate",
+                                "size": "250g",
+                                "price": 9.99,
+                                "stock": 100
+                              
+                        }
+                    },
+                },
+                
+                responses: {
+                    200: {
+                        description: 'Product found successfully',
                     },
                     500: {
                         description: 'Server error'

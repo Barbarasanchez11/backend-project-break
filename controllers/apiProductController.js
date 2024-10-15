@@ -27,14 +27,39 @@ const apiProducts = {
     },
 
     async showProductById(req,res){
-        const { _id } = req.params;
+        const {productId} = req.params;
         try {                                                                     
-            const product = await Product.findById(_id);              
+            const product = await Product.findById(productId);              
             res.send(product);
         } catch (error) {
             res.status(500).send(error);
         }
+    },
+    async updateById (req,res){
+        const {productId} = req.params
+        const body = req.body
+        
+       
+        try {
+            const products = await Product.findByIdAndUpdate(productId, {...body}, { new: true })
+            console.log(products)
+            res.status(200).json(products)
+        } catch (error) {
+            res.status(500).send(error)
+        }
+    },
+
+    
+  async deleteProduct(req,res){
+    const {productId }= req.params
+    try {
+        const products = await Product.findByIdAndDelete(productId)
+        res.send({mensaje: 'Producto eleiminado', products})
+        
+    } catch (error) {
+        res.status(500).send(error)
     }
+  }
 
 }
 
