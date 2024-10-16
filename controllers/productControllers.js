@@ -9,11 +9,15 @@ const auth = admin.auth()
 const productController = {
 
   async showProduct(req, res) {
+    const {category} = req.query
+    console.log(category)
+    
     try {
-      const products = await Product.find();
+      const products =  await Product.find() 
+      const areThereCategories = category ? products.filter(product => product.category[0] === category) : products
       if(!products) throw new Error('No se encontraron productos')
-      const html = baseHtml() + getNavBar() + getProductCards(products) 
-      console.log()
+      const html = baseHtml() + getNavBar() + getProductCards(areThereCategories) 
+     
       
       res.send(html);
     } catch (error) {

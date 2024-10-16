@@ -25,11 +25,11 @@ function getNavBar() {
 <nav>
   <ul>
     <li><a href="/products">Productos</a></li>
-    <li><a href='/products/Proteinas'>Proteinas</a></li>
-    <li><a href='/products/Vitaminas'>Vitaminas</a></li>
-    <li><a href='/products/Snacks'>Snacks</a></li>
-    <li><a href='/products/NutricionDeportiva'>Nutrición Deportiva</a></li>
-    <li><a href='/products/Otros'>Otros</a></li>
+    <li><a href='/?category=Proteinas'>Proteinas</a></li>
+    <li><a href='/?category=Vitaminas'>Vitaminas</a></li>
+    <li><a href='/?category=Snacks'>Snacks</a></li>
+    <li><a href='/?category=NutricionDeportiva'>Nutrición Deportiva</a></li>
+    <li><a href='/?category=Otros'>Otros</a></li>
     <li><a href='/login'>Login</a></li>
   </ul>
 </nav>
@@ -349,20 +349,7 @@ function deleteProd(product) {
 }
 
 
-function footer() {
-  const html = `
-    <footer>
-    <div class='footer'>
-      <p>By Bárbara Sánchez Urbano
-        <a href='https://github.com/Barbarasanchez11/backend-project-break' target="_blank">
-          <img src='../image/GitHub.webp' alt="icono gitHub">
-        </a>
-      </p>
-    </div>
-    </footer>
-  `;
-  return html;
-}
 
-module.exports =  {baseHtml,getNavBar,getProductCardsById,getProductsHtml,getNavBarDash,getProductCards,getProductCardsDash,formNewProduct,formEditProduct,deleteProd,footer}
+
+module.exports =  {baseHtml,getNavBar,getProductCardsById,getProductsHtml,getNavBarDash,getProductCards,getProductCardsDash,formNewProduct,formEditProduct,deleteProd}
 
