@@ -18,12 +18,15 @@ const authController = {
       
       
       async showDashboard(req,res){
+        const {category} = req.query
+      console.log(category)
         try {
       
           const products = await Product.find();
+          const areThereCategories = category ? products.filter(product => product.category[0] === category) : products
           if(!products) throw new Error('No se encontraron productos')
            
-          const html = baseHtml() + getNavBarDash()  + getProductsHtml(products)
+          const html = baseHtml() + getNavBarDash()  + getProductsHtml(areThereCategories)
           res.send(html);
           ; 
           } catch (error) {
