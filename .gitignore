@@ -30,7 +30,8 @@ package-lock.json
 # Archivos de construcción
 /build/  
 /dist/  
-/out/   
+/out/  
+/public/  
 /build-output/
 
 # Archivos de configuración de editor

@@ -25,6 +25,7 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
+	height: 90%;
 }
 ol, ul {
 	list-style: none;
@@ -459,19 +460,18 @@ input[type="text"], input[type="number"], textarea, select {
 /*footer*/
 
 footer {
-	display: flex;
-    flex-direction: row;
-    align-content: center;
+	
     justify-content: center;
-    font-size: 19px;
-    
-    margin-top: auto;
+    align-items: center;
+    height: 60px;
 }
 
-footer a {
-	color:rgb(68, 132, 68);
+footer p {
+	color:black
 }
+
 footer a img{
     width: 25px;
     margin-left: 1200px;
+	
 }

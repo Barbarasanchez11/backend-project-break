@@ -1,0 +1,168 @@
+const {baseHtml,getNavBarDash,getProductCardsDash,formNewProduct, getProductsHtml,formEditProduct,deleteProd,footer} = require('../public/utils/index')
+const Product = require('../models/Product')
+const path = require('path')
+
+
+const authController = {
+    async showNewProduct(req,res){
+        try {
+          const html =  baseHtml() + getNavBarDash() + formNewProduct() +footer()
+          res.send(html)
+          
+         } catch (error) {
+          console.error(error)
+          res.status(500).json({message : 'Se produjo un error al intentar mostrar el producto'})
+         } 
+      },
+      
+      
+      async showDashboard(req,res){
+        try {
+      
+          const products = await Product.find();
+          if(!products) throw new Error('No se encontraron productos')
+           
+          const html = baseHtml() + getNavBarDash()  + getProductsHtml(products)+footer()
+          res.send(html);
+          ; 
+          } catch (error) {
+          console.error(error)
+          res.status(500).send('Error al obtener los productos') 
+          }
+          
+      },
+      async showProductByCategoryFromDashboard(req, res) {
+        const path = req.path;
+        const category = path.split('/dashboard/').join(''); // Cambia la ruta según sea necesario
+      
+        try {
+            const products = await Product.find({ category }); // Busca todos los productos de esa categoría
+            const html = baseHtml() + getNavBarDash() + getProductCardsDash(products) +footer()
+            res.send(html);
+        } catch (error) {
+            res.status(500).json({ message: 'Se produjo un error al intentar obtener el producto' });
+        }
+      },
+      
+      async createProduct(req,res){
+        try{
+            const {name, description, image, category, flavour, size, price, stock} = req.body 
+            const createItem = new Product({
+             name,
+             description,
+             image,
+             category,
+             flavour,
+             size,
+             price,
+             stock
+            })
+            await createItem.save()//guardamos el prod. en la BBDD
+            res.redirect('/dashboard');
+           
+        } 
+        catch(error){
+          console.error(error)
+            res.status(500).json({message : 'Se produjo un error al intentar crear el producto'})
+      
+            
+        }
+      },
+      
+      async showDashboardById(req,res) {
+        try {
+         const id = req.params.productId
+         const products = await Product.findById(id)
+         if(!products) {
+            return res.status(404).json({message: 'El producto con ese Id no existe'})
+         }
+         const html = baseHtml() + getNavBarDash() + getProductCardsDash([products])  +footer()
+         `<div class="editDelete"><a href='/dashboard/${id}/edit' class="editDash">Editar</a>` +  `<button id="delete-button" class="deleteButton">Borrar</button></div>
+         <script>
+             document.getElementById('delete-button').addEventListener('click', async () => {
+                 const productId = '${id}';
+                 const response = await fetch(\`/dashboard/\${productId}/delete\`, {
+                     method: 'DELETE',
+                     headers: {
+                         'Content-Type': 'application/json'
+                     }
+                 });
+                 const dataResponse = await response.json();
+                 if (dataResponse.success) {
+                     window.location.href = '/dashboard';
+                 } else {
+                     alert(dataResponse.message);
+                 }
+             });
+         </script>`;
+      
+         res.send(html)
+        } catch (error) {
+            console.error(error)
+            res.status(500).json({message : 'Se produjo un error al intentar obtener el producto'})
+            
+        }
+      },
+      
+      async showEditProduct(req,res){
+        try {
+          const productId =req.params.productId  
+          const products = await Product.findById(productId)  
+          if(!products) {
+           return res.status(404).json({message: 'El producto con ese Id no existe'})
+          }
+          const html = baseHtml()+ getNavBarDash() + formEditProduct(req,products) + footer()
+          res.send(html)
+          
+      } catch (error) {
+          console.log(error)
+          res.status(500).json({message : 'Se produjo un error al intentar cargar el formulario'})
+      }
+      },
+      
+      async updateProduct(req,res){
+        try {
+          const id = req.params.productId;
+          const body = req.body;
+          
+          const products= await Product.findByIdAndUpdate(id, body, { new: true });
+          if (!products) {
+            return res.status(404).send({ message: 'Producto no encontrado' })
+          } 
+          res.json({ success: true });
+      } catch (error) {
+          console.error(error)
+          res.status(500).json({message : 'Se produjo un error intentando actualizar el producto'})
+      }
+      },
+      
+      
+      
+      async deleteProduct(req, res) {
+        
+        const productId = req.params.productId;
+        console.log(productId)
+      
+        try {
+            const product = await Product.findById(productId);
+      
+            if (!product) {
+                return res.status(404).json({ message:'Producto no encontrado' });
+            }
+            
+                await Product.findByIdAndDelete(productId);
+                res.status(200).json({ success: 'Producto eliminado correctamente' }); 
+            
+            
+            
+        } catch (error) {
+            console.error(error); 
+            res.status(500).json({ message: 'Se produjo un error al intentar borrar el producto' });
+        }
+      },
+      
+      
+
+}
+
+module.exports = authController

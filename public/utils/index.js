@@ -349,17 +349,17 @@ function deleteProd(product) {
 }
 
 
-function footer(){
+function footer() {
   const html = `
     <footer>
-      
+      <p>
         <a href='https://github.com/Barbarasanchez11/backend-project-break' target="_blank">
           <img src='../image/GitHub.webp' alt="icono gitHub">
         </a>
-      
+      </p>
     </footer>
-  `
-  return html
+  `;
+  return html;
 }
 
 module.exports =  {baseHtml,getNavBar,getProductCardsById,getProductsHtml,getNavBarDash,getProductCards,getProductCardsDash,formNewProduct,formEditProduct,deleteProd,footer}
