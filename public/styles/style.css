@@ -462,38 +462,7 @@ input[type="text"], input[type="number"], textarea, select {
         max-width: 200px; 
     }
 }
-/*footer*/
+
 
  
 
-footer {
-   text-align: right;
-  bottom: 0; /* Ubica el footer en la parte inferior */
-  right: 0; /* Ubica el footer a la derecha */
-  display: flex; /* Usa flexbox para alinear elementos */
-   /* Centra verticalmente el contenido dentro del footer */
-  padding: 10px; /* Espacio interno alrededor del contenido */
-  background-color: rgb(231, 189, 112); /* Color de fondo del footer */
-  border-top: 1px solid rgb(68, 132, 68); /* Línea superior para separar del contenido */
-}
-
-.footer {
-  display: flex; 
-  
-  text-align: right;
-}
-
-.footer p {
-	display: flex;
-  margin: 0; 
-  text-align: right;
-}
-
-.footer a {
-  display: flex; 
-}
-
-.footer img {
-  width: 20px;
-  height: auto; 
-}
