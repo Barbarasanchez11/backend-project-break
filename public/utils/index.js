@@ -155,49 +155,8 @@ function getNavBarDash() {
 </script>
 `;
 }
-function getNavBarDashInd() {
-  return `
-<nav>
-  <ul>
-    <li><a href='/products/Proteinas'>Proteinas</a></li>
-    <li><a href='/products/Vitaminas'>Vitaminas</a></li>
-    <li><a href='/products/Snacks'>Snacks</a></li>
-    <li><a href='/products/NutricionDeportiva'>Nutrición Deportiva</a></li>
-    <li><a href='/products/Otros'>Otros</a></li>
-     <li><a href='/dashboard/new'>Nuevo Producto</a></li>
-    <li><a href='/products/logout'>Logout</a></li>
-   
-  </ul>
-</nav>
-`;
-}
 
-/*function navBar(isFromDashboard){
-  const categories = ["Proteinas", "Vitaminas", "Snacks", "NutricionDeportiva", "Otros"];
-  
-  const createListItem = (cat) => {
-    const basePath = isFromDashboard ? '/dashboard' : '/';
-    return `<li><a href='${basePath}?category=${cat}'>${cat}</a></li>`;
-  };
-  
-  const listItems = categories.map(createListItem).join('');
-  const productsLink = isFromDashboard ? '/dashboard' : '/';
-  
-  return `
-    <nav>
-      <div>
-        <a href="${productsLink}">Productos</a>
-      </div>
-      <ul>
-        ${listItems}
-      </ul>
-      <div>
-        ${loginOrLogoutLink}
-        <li><a href='/dashboard/new'>Nuevo Producto</a></li>
-      </div>
-    </nav>
-  `;
-}*/
+
 
  
 function formNewProduct(){
@@ -249,6 +208,10 @@ function formNewProduct(){
         <div class="newPrice">
             <label for="price">Precio:</label>
             <input type="number" id="price" name="price" required step="0.01">
+        </div>
+        <div class="newStock">
+            <label for="stock">Stock:</label>
+            <input type="number" id="stock" name="stock" required>
         </div>
         <button type="submit" class="newAdd">Agregar Producto</button>
         
@@ -400,4 +363,4 @@ function deleteProd(product) {
   return htmlDelete;
 }
 
-module.exports =  {baseHtml,getNavBar,getProductCardsById,getProductsHtml,getNavBarDash,getNavBarDashInd,getProductCards,getProductCardsDash,formNewProduct,formEditProduct,deleteProd}
+module.exports =  {baseHtml,getNavBar,getProductCardsById,getProductsHtml,getNavBarDash,getProductCards,getProductCardsDash,formNewProduct,formEditProduct,deleteProd}

@@ -1,5 +1,5 @@
 const Product = require('../models/Product')
-const {baseHtml, getNavBar, getProductCards, getProductsHtml,getProductCardsById,getNavBarDash,getNavBarDashInd,getProductCardsDash,formNewProduct, formEditProduct,deleteProd} = require('../public/utils/index')
+const {baseHtml, getNavBar, getProductCards, getProductsHtml,getProductCardsById,getNavBarDash,getProductCardsDash,formNewProduct, formEditProduct,deleteProd} = require('../public/utils/index')
 const firebase = require('../config/firebase')
 const path=require('path')
 const admin = require('firebase-admin')
@@ -157,7 +157,7 @@ async showEditProduct(req,res){
     if(!products) {
      return res.status(404).json({message: 'El producto con ese Id no existe'})
     }
-    const html = baseHtml()+ getNavBarDashInd() + formEditProduct(req,products)
+    const html = baseHtml()+ getNavBarDash() + formEditProduct(req,products)
     res.send(html)
     
 } catch (error) {
