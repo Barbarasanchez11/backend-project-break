@@ -348,4 +348,19 @@ function deleteProd(product) {
   return htmlDelete;
 }
 
-module.exports =  {baseHtml,getNavBar,getProductCardsById,getProductsHtml,getNavBarDash,getProductCards,getProductCardsDash,formNewProduct,formEditProduct,deleteProd}
+
+function footer(){
+  const html = `
+    <footer>
+      
+        <a href='https://github.com/Barbarasanchez11/backend-project-break' target="_blank">
+          <img src='../image/GitHub.webp' alt="icono gitHub">
+        </a>
+      
+    </footer>
+  `
+  return html
+}
+
+module.exports =  {baseHtml,getNavBar,getProductCardsById,getProductsHtml,getNavBarDash,getProductCards,getProductCardsDash,formNewProduct,formEditProduct,deleteProd,footer}
+

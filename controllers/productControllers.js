@@ -1,5 +1,5 @@
 const Product = require('../models/Product')
-const {baseHtml, getNavBar, getProductCards, getProductsHtml,getProductCardsById,getNavBarDash,getProductCardsDash,formNewProduct, formEditProduct,deleteProd} = require('../public/utils/index')
+const {baseHtml, getNavBar, getProductCards, getProductsHtml,getProductCardsById,getNavBarDash,getProductCardsDash,formNewProduct, formEditProduct,deleteProd,footer} = require('../public/utils/index')
 const firebase = require('../config/firebase')
 const path=require('path')
 const admin = require('firebase-admin')
@@ -12,7 +12,7 @@ const productController = {
     try {
       const products = await Product.find();
       if(!products) throw new Error('No se encontraron productos')
-      const html = baseHtml() + getNavBar() + getProductCards(products); 
+      const html = baseHtml() + getNavBar() + getProductCards(products) + footer()
       console.log()
       
       res.send(html);

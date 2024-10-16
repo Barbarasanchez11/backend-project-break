@@ -22,9 +22,6 @@ router.get('/products/Snacks',productController.showProductByCategory)
 router.get('/products/NutricionDeportiva',productController.showProductByCategory)
 router.get('/products/Otros',productController.showProductByCategory)
 
-
-
-
 router.get('/products/:productId', productController.showProductById)
 
 //register
@@ -37,9 +34,6 @@ router.post('/login', productController.loginUser)
 
 //logout
 router.post( '/logout' ,productController.logout)
-
-
-
 
 // Devuelve el detalle de un producto en el dashboard. desde ahi puedo crear producto. OK
 router.get('/dashboard/new',authMiddleware, productController.showNewProduct)

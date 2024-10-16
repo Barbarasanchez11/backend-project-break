@@ -456,3 +456,22 @@ input[type="text"], input[type="number"], textarea, select {
         max-width: 200px; 
     }
 }
+/*footer*/
+
+footer {
+	display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+    font-size: 19px;
+    
+    margin-top: auto;
+}
+
+footer a {
+	color:rgb(68, 132, 68);
+}
+footer a img{
+    width: 25px;
+    margin-left: 1200px;
+}
