@@ -252,7 +252,3 @@ async logout(req,res){
 }
 
 module.exports = productController;
-
-
-
-

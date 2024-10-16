@@ -40,6 +40,7 @@ router.post( '/logout' ,productController.logout)
 
 
 
+
 // Devuelve el detalle de un producto en el dashboard. desde ahi puedo crear producto. OK
 router.get('/dashboard/new',authMiddleware, productController.showNewProduct)
 
