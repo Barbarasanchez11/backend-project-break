@@ -44,7 +44,7 @@ async showProductByCategory(req, res) {
 
   try {
       const products = await Product.find({ category });
-      const html = baseHtml() + getNavBar() + getProductCards(products);
+      const html = baseHtml() + getNavBar() + getProductCardsById(products);
       res.send(html);
   } catch (error) {
       res.status(500).json({ message: 'Se produjo un error al intentar obtener el producto' });
