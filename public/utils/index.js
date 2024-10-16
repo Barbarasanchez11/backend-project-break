@@ -105,23 +105,7 @@ function getProductCardsDash(products) {
   return html;
 }
 
-/*function getNavBarDash() {
-  return `
-<nav>
-  <ul>
-    <li><a href='/products/Proteinas'>Proteinas</a></li>
-    <li><a href='/products/Vitaminas'>Vitaminas</a></li>
-    <li><a href='/products/Snacks'>Snacks</a></li>
-    <li><a href='/products/NutricionDeportiva'>Nutrición Deportiva</a></li>
-    <li><a href='/products/Otros'>Otros</a></li>
-   <button id="logout-button">Cerrar sesión</button>
 
-    <li><a href='/dashboard/new'>Nuevo Producto</a></li>
-  </ul>
-</nav>
-`;
-}
-*/
 
 function getNavBarDash() {
   return `
@@ -166,6 +150,7 @@ function formNewProduct(){
 <body>
     <h1 class="titleNew">Añadir Nuevo Producto</h1>
     <form action="/dashboard/new" class="formNew" method="POST">
+     <article class='articleNew'>
         <div class="newName">
             <label for="name">Nombre</label>
             <input type="text" id="name" name="name" required>
@@ -214,7 +199,7 @@ function formNewProduct(){
             <input type="number" id="stock" name="stock" required>
         </div>
         <button type="submit" class="newAdd">Agregar Producto</button>
-        
+     </article>  
     </form>
     <a href="/dashboard"> </a>
    

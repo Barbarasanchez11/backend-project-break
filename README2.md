@@ -101,3 +101,8 @@ Endpoints desde la parte del Admin:
 -GET /login: Devuelve el formulario de inicio de sesión.
 -POST /login: Inicio sesión de un usuario.
 
+#Despliegue
+
+Es necesario cargar las varieables de entorno requeridas antes de desplegar la aplicación.
+
+Sigue las indicaciones que ofrece Render para completar el proceso de despliegue.
