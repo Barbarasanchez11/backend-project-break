@@ -1,5 +1,5 @@
 const Product = require('../models/Product')
-const {baseHtml, getNavBar, getProductCards,getProductCardsById,footer} = require('../public/utils/index')
+const {baseHtml, getNavBar, getProductCards,getProductCardsById} = require('../public/utils/index')
 const path=require('path')
 const admin = require('firebase-admin')
 const auth = admin.auth()
@@ -12,7 +12,7 @@ const productController = {
     try {
       const products = await Product.find();
       if(!products) throw new Error('No se encontraron productos')
-      const html = baseHtml() + getNavBar() + getProductCards(products) + footer()
+      const html = baseHtml() + getNavBar() + getProductCards(products) 
       console.log()
       
       res.send(html);
@@ -30,7 +30,7 @@ const productController = {
         if(!products) {
             return res.status(404).json('Producto no encontrado')
         }
-        const html = baseHtml() + getNavBar() + getProductCardsById([products]) +footer()
+        const html = baseHtml() + getNavBar() + getProductCardsById([products]) 
         res.send(html)
     }catch (error) {
       res.status(500).json({message : 'Se produjo un error al intentar obtener el producto'})
@@ -44,7 +44,7 @@ async showProductByCategory(req, res) {
 
   try {
       const products = await Product.find({ category });
-      const html = baseHtml() + getNavBar() + getProductCardsById(products); +footer()
+      const html = baseHtml() + getNavBar() + getProductCardsById(products); 
       res.send(html);
   } catch (error) {
       res.status(500).json({ message: 'Se produjo un error al intentar obtener el producto' });

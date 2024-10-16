@@ -352,11 +352,13 @@ function deleteProd(product) {
 function footer() {
   const html = `
     <footer>
-      <p>
+    <div class='footer'>
+      <p>By Bárbara Sánchez Urbano
         <a href='https://github.com/Barbarasanchez11/backend-project-break' target="_blank">
           <img src='../image/GitHub.webp' alt="icono gitHub">
         </a>
       </p>
+    </div>
     </footer>
   `;
   return html;

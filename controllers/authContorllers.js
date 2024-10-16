@@ -1,12 +1,13 @@
-const {baseHtml,getNavBarDash,getProductCardsDash,formNewProduct, getProductsHtml,formEditProduct,deleteProd,footer} = require('../public/utils/index')
+const {baseHtml,getNavBarDash,getProductCardsDash,formNewProduct, getProductsHtml,formEditProduct} = require('../public/utils/index')
 const Product = require('../models/Product')
 const path = require('path')
+
 
 
 const authController = {
     async showNewProduct(req,res){
         try {
-          const html =  baseHtml() + getNavBarDash() + formNewProduct() +footer()
+          const html =  baseHtml() + getNavBarDash() + formNewProduct() 
           res.send(html)
           
          } catch (error) {
@@ -22,7 +23,7 @@ const authController = {
           const products = await Product.find();
           if(!products) throw new Error('No se encontraron productos')
            
-          const html = baseHtml() + getNavBarDash()  + getProductsHtml(products)+footer()
+          const html = baseHtml() + getNavBarDash()  + getProductsHtml(products)
           res.send(html);
           ; 
           } catch (error) {
@@ -37,7 +38,8 @@ const authController = {
       
         try {
             const products = await Product.find({ category }); // Busca todos los productos de esa categoría
-            const html = baseHtml() + getNavBarDash() + getProductCardsDash(products) +footer()
+            const html = baseHtml() + getNavBarDash() + getProductCardsDash(products) 
+            
             res.send(html);
         } catch (error) {
             res.status(500).json({ message: 'Se produjo un error al intentar obtener el producto' });
@@ -76,7 +78,7 @@ const authController = {
          if(!products) {
             return res.status(404).json({message: 'El producto con ese Id no existe'})
          }
-         const html = baseHtml() + getNavBarDash() + getProductCardsDash([products])  +footer()
+         const html = baseHtml() + getNavBarDash() + getProductCardsDash([products]) +
          `<div class="editDelete"><a href='/dashboard/${id}/edit' class="editDash">Editar</a>` +  `<button id="delete-button" class="deleteButton">Borrar</button></div>
          <script>
              document.getElementById('delete-button').addEventListener('click', async () => {
@@ -111,7 +113,7 @@ const authController = {
           if(!products) {
            return res.status(404).json({message: 'El producto con ese Id no existe'})
           }
-          const html = baseHtml()+ getNavBarDash() + formEditProduct(req,products) + footer()
+          const html = baseHtml()+ getNavBarDash() + formEditProduct(req,products) 
           res.send(html)
           
       } catch (error) {
