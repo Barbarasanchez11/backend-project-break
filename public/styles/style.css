@@ -463,6 +463,23 @@ input[type="text"], input[type="number"], textarea, select {
     }
 }
 
-
- 
-
+.pagination {
+	position: fixed; 
+	bottom: 10px; 
+	right: 10px; 
+	
+	
+	padding: 10px; 
+	border-radius: 5px; 
+	
+  }
+  
+  .pagination a {
+	color: rgb(68, 132, 68); 
+	text-decoration: none; 
+	margin: 0 5px; 
+  }
+  
+  .pagination a:hover {
+	text-decoration: underline; 
+  }
