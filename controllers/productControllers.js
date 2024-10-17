@@ -41,20 +41,6 @@ const productController = {
   }
 },
 
-async showProductByCategory(req, res) {
-  
-  const path = req.path;
-  const category = path.split('/products/').join('');
-
-  try {
-      const products = await Product.find({ category });
-      const html = baseHtml() + getNavBar() + getProductCardsById(products); 
-      res.send(html);
-  } catch (error) {
-      res.status(500).json({ message: 'Se produjo un error al intentar obtener el producto' });
-  }
-},
-
 /* Bonus Login*/
 
 async register(req,res){

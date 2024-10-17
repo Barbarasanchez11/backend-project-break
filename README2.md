@@ -72,34 +72,21 @@ Endpoints desde la parte del usuario:
 
 -GET /: Devuelve todos los productos.
 -GET /products: Devuelve al home donde están todos los productos.
--GET /products/Proteinas: Devuelve la categoría de Proteinas.
--GET /products/Vitaminas: Devuelve la categoría de Vitaminas.
--GET /products/Snacks: Devuelve la categoría de Snacks.
--GET /products/NutricionDeportiva: Devuelve la categoría de Nutrición Deportiva.
--GET /products/Otros:Devuelve  la categoría de Otros.
--GET /products/:productId: Devuelve el detalle de un producto en concreto.
 
-
+-GET /register: Devuelve el formulario de registro.
+-POST /register: Registra un nuevo usuario.
+-GET /login: Devuelve el formulario de inicio de sesión.
+-POST /login: Inicio sesión de un usuario.
 
 Endpoints desde la parte del Admin:
 
 -GET /dashboard: Devuelve todos los productos.
 -GET /dashboard/new: Devuelve un formulario para añadir un producto nuevo a la base de datos.
 -POST /dashboard/new: Crea un producto nuevo en la base de datos.
--GET /dashboard/Proteinas: Devuelve la categoría de Proteinas.
--GET /dashboard/Vitaminas: Devuelve la categoría de Vitaminas.
--GET /dashboard/Snacks: Devuelve la categoría de Snacks.
--GET /dashboard/NutricionDeportiva: Devuelve la categoría de Nutrición Deportiva.
--GET /dashboard/Otros:Devuelve  la categoría de Otros.
 -GET /dashboard/:productId:Devuelve el detalle de un producto en concreto.
 -PUT /dashboard/:productId: Actualiza un producto en la base de datos.
 -GET /dashboard/:productId/edit: Devuelve un formulario para editar un producto nuevo a la base de datos.
 -DELETE /dashboard/:productId/delete: Elimina un producto de la base de datos.
-
--GET /register: Devuelve el formulario de registro.
--POST /register: Registra un nuevo usuario.
--GET /login: Devuelve el formulario de inicio de sesión.
--POST /login: Inicio sesión de un usuario.
 
 #Despliegue
 

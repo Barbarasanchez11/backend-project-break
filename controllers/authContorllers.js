@@ -35,20 +35,7 @@ const authController = {
           }
           
       },
-      async showProductByCategoryFromDashboard(req, res) {
-        const path = req.path;
-        const category = path.split('/dashboard/').join(''); // Cambia la ruta según sea necesario
-      
-        try {
-            const products = await Product.find({ category }); // Busca todos los productos de esa categoría
-            const html = baseHtml() + getNavBarDash() + getProductCardsDash(products) 
-            
-            res.send(html);
-        } catch (error) {
-            res.status(500).json({ message: 'Se produjo un error al intentar obtener el producto' });
-        }
-      },
-      
+   
       async createProduct(req,res){
         try{
             const {name, description, image, category, flavour, size, price, stock} = req.body 

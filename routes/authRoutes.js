@@ -14,8 +14,6 @@ router.post('/dashboard/new',authMiddleware,authController.createProduct)
 //Si clickamos en uno de ellos nos llevará a su página para poder actualizarlo o eliminarlo.OK
 router.get('/dashboard',authMiddleware,authController.showDashboard)
 
-
-
 //Devuelve el detalle de un producto en el dashboard. OK
 router.get('/dashboard/:productId',authMiddleware, authController.showDashboardById)
 
