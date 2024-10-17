@@ -66,7 +66,7 @@ function getProductsHtml(products) {
   `;
 }
 
-function generateProductHtml(product) {
+/*function generateProductHtml(product) {
   return `
       
       <div class="editDelete">
@@ -92,7 +92,7 @@ function generateProductHtml(product) {
       </script>
   `;
 }
-
+*/
 
 function getProductCardsById(products) {
   let html = '<div class="productContainer">'; 
@@ -400,5 +400,5 @@ function deleteProd(product) {
 
 
 
-module.exports =  {baseHtml,getNavBar,getProductCardsById,getProductsHtml,generateProductHtml,getEditDeleteControls,getNavBarDash,getProductCards,getProductCardsDash,formNewProduct,formEditProduct,deleteProd}
+module.exports =  {baseHtml,getNavBar,getProductCardsById,getProductsHtml,/*generateProductHtml*/getEditDeleteControls,getNavBarDash,getProductCards,getProductCardsDash,formNewProduct,formEditProduct,deleteProd}
 
