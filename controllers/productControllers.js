@@ -1,30 +1,38 @@
 const Product = require('../models/Product')
-const {baseHtml, getNavBar, getProductCards,getProductCardsById} = require('../public/utils/index')
+const {baseHtml, getNavBar, getProductCards,getProductCardsById,getPagination} = require('../public/utils/index')
 const path=require('path')
 const admin = require('firebase-admin')
 const auth = admin.auth()
 
 const productController = {
-
   async showProduct(req, res) {
-    const {category} = req.query
+    const { page = 1, category } = req.query; // Si page no existe se establece por defecto 1
+    const pages = 5;
 
     try {
-      const products =  await Product.find() 
-      const areThereCategories = category ? products.filter(product => product.category[0] === category) : products
-      if(!products) throw new Error('No se encontraron productos')
-      const html = baseHtml() + getNavBar() + getProductCards(areThereCategories) 
-<<<<<<< HEAD
-=======
-     console.log(html)
-      
->>>>>>> newChanges
-      res.send(html);
+        const query = category ? { category: category } : {}; // Filtra por categoría si se proporciona
+
+        // Obtiene el total de productos que coinciden con la consulta
+        const totalProducts = await Product.countDocuments(query);
+        const totalPages = Math.ceil(totalProducts / pages);
+        const currentPage = Math.min(Math.max(1, page), totalPages); // Asegura que la página actual esté dentro de los límites entre 1 y la longitud
+
+        const skip = (currentPage - 1) * pages; 
+
+        
+        const paginatedProducts = await Product.find(query)
+            .skip(skip)
+            .limit(pages);
+
+        
+        const html = baseHtml() + getNavBar() + getProductCards(paginatedProducts) + getPagination(currentPage, totalPages, category);
+        res.send(html);
     } catch (error) {
-      console.error(error);
-      res.status(500).send('Error al obtener los productos');
+        console.error(error);
+        res.status(500).send('Error al obtener los productos');
     }
-  },
+},
+
   
 
   

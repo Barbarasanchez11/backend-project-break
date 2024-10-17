@@ -22,7 +22,8 @@ const ProductSchema = new mongoose.Schema ({
         type: [String],
         trim: true,
         required: true, 
-        enum: ['Proteinas','Vitaminas','Snacks','NutricionDeportiva','Otros']},//sólo se pueden seleccionar los valores listados
+        enum: ['Proteinas','Vitaminas','Snacks','NutricionDeportiva','Otros']
+    },//sólo se pueden seleccionar los valores listados
 
     flavour: {
         type: String,

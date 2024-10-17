@@ -135,6 +135,28 @@ function getNavBarDash() {
 `;
 }
 
+function getPagination(currentPage, totalPages, category) {
+  if (totalPages <= 1) // si es 1 o mens no se necesita y devuelve ''
+    return ''
+
+  let paginationHtml = '<div class="pagination">'
+
+  if (currentPage > 1) {
+    paginationHtml += `<a href="?page=${currentPage - 1}&category=${category || ''}">« Anterior</a>`
+  }//si la actual es mayor a 1 da el enlace para ir a la anterior, si hay categoria se usa, si no devuevle ''
+
+  for (let i = 1; i <= totalPages; i++) {
+    paginationHtml += (i === currentPage) ? `${i}` : `<a href="?page=${i}&category=${category || ''}">${i}</a>`
+  }//si la pag actual es una muestar el nº, si no el href que puede ir a categroria si tambien estamos dentro de ella
+
+  if (currentPage < totalPages) {
+    paginationHtml += `<a href="?page=${currentPage + 1}&category=${category || ''}">Siguiente »</a>`
+  }//si la pag actual es menos que el total de páginas se crea un enlace para ir a la siguiente
+
+  paginationHtml += '</div>'
+  return paginationHtml;
+}
+
 function getEditDeleteControls(productId) {
   return `
       <div class="editDelete">
@@ -182,7 +204,7 @@ function formNewProduct(){
                 <option value="Proteinas">Proteinas</option>
                 <option value="Vitaminas">Vitaminas</option>
                 <option value="Snacks">Snacks</option>
-                <option value="Nutrición deportiva">Nutrición deportiva</option>
+                <option value="NutricionDeportiva">Nutrición deportiva</option>
                 <option value="Otros">Otros</option>
             </select>
         </div>
@@ -245,7 +267,7 @@ function formEditProduct(req, product) {
                 <option value="Proteinas" ${product.category === 'Proteinas' ? 'selected' : ''}>Proteinas</option>
                 <option value="Vitaminas" ${product.category === 'Vitaminas' ? 'selected' : ''}>Vitaminas</option>
                 <option value="Snacks" ${product.category === 'Snacks' ? 'selected' : ''}>Snacks</option>
-                <option value="Nutrición deportiva" ${product.category === 'Nutrición deportiva' ? 'selected' : ''}>Nutrición deportiva</option>
+                <option value="NutricionDeportiva" ${product.category === 'NutricionDeportiva' ? 'selected' : ''}>Nutrición deportiva</option>
                 <option value="Otros" ${product.category === 'Otros' ? 'selected' : ''}>Otros</option>
             </select>
         </div>
@@ -355,7 +377,7 @@ function deleteProd(product) {
   `;
   return htmlDelete;
 }
-module.exports =  {baseHtml,getNavBar,getProductCardsById,getProductsHtml,getEditDeleteControls,getNavBarDash,getProductCards,getProductCardsDash,formNewProduct,formEditProduct,deleteProd}
+module.exports =  {baseHtml,getNavBar,getProductCardsById,getProductsHtml,getEditDeleteControls,getNavBarDash,getProductCards,getProductCardsDash,formNewProduct,formEditProduct,deleteProd,getPagination}
 
 
 /*const express= require('express')

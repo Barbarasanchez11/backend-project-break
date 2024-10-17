@@ -1,4 +1,4 @@
-const {baseHtml,getNavBarDash,getProductCardsDash,formNewProduct, getProductsHtml,getEditDeleteControls,formEditProduct} = require('../public/utils/index')
+const {baseHtml,getNavBarDash,getProductCardsDash,formNewProduct, getProductsHtml,getEditDeleteControls,formEditProduct,getPagination} = require('../public/utils/index')
 const Product = require('../models/Product')
 const path = require('path')
 
@@ -17,34 +17,43 @@ const authController = {
       },
          
       async showDashboard(req,res){
-        const {category} = req.query
-
+        const { page = 1, category } = req.query; // Si page no existe se establece por defecto 1
+        const pages = 5;
+    
         try {
-
-          const products = await Product.find();
-          const areThereCategories = category ? products.filter(product => product.category[0] === category) : products
-          if(!products) throw new Error('No se encontraron productos')
-
-          const html = baseHtml() + getNavBarDash()  + getProductsHtml(areThereCategories)
-          res.send(html);
-          ; 
-          } catch (error) {
-          console.error(error)
-          res.status(500).send('Error al obtener los productos') 
-          }
-
-      },
+            const query = category ? { category: category } : {}; // Filtra por categoría si se proporciona
+    
+            // Obtiene el total de productos que coinciden con la consulta
+            const totalProducts = await Product.countDocuments(query);
+            const totalPages = Math.ceil(totalProducts / pages);
+            const currentPage = Math.min(Math.max(1, page), totalPages); // Asegura que la página actual esté dentro de los límites entre 1 y la longitud
+    
+            const skip = (currentPage - 1) * pages; 
+    
+            
+            const paginatedProducts = await Product.find(query)
+                .skip(skip)
+                .limit(pages);
+    
+            
+            const html = baseHtml() + getNavBarDash() + getProductsHtml(paginatedProducts) + getPagination(currentPage, totalPages, category);
+            res.send(html);
+        } catch (error) {
+            console.error(error);
+            res.status(500).send('Error al obtener los productos');
+        }
+    },
 
     async createProduct(req,res){
         try{
             const {name, description, image, category, flavour, size, price, stock} = req.body 
-            const standardizedCategory = category.replace(/ /g, '').toLowerCase()
+           
 
             const createItem = new Product({
              name,
              description,
              image,
-             category: [standardizedCategory],
+             category,
              flavour,
              size,
              price,
@@ -71,7 +80,7 @@ const authController = {
           getNavBarDash(),
           getProductCardsDash([products]), 
           getEditDeleteControls(id),
-          getPagination()
+          
       ].join('')
          res.send(html)
         } catch (error) {
