@@ -1,6 +1,6 @@
 const app = require('../app')
 const Product = require('../models/Product')
-const{baseHtml} =require('../public/utils/index')
+const{baseHtml,getNavBar} =require('../public/utils/index')
 const mongoose = require('mongoose')
 
 
@@ -26,5 +26,21 @@ describe('Utilities', () => {
 </html>
 `;
     expect(baseHtml().trim()).toBe(expected.trim());
+  });
+  test('getNavBar devuelve la barra de navegación correcta', () => {
+    const expectedNavBar = `
+<nav>
+  <ul>
+    <li><a href="/products">Productos</a></li>
+    <li><a href='/?category=Proteinas'>Proteinas</a></li>
+    <li><a href='/?category=Vitaminas'>Vitaminas</a></li>
+    <li><a href='/?category=Snacks'>Snacks</a></li>
+    <li><a href='/?category=NutricionDeportiva'>Nutrición Deportiva</a></li>
+    <li><a href='/?category=Otros'>Otros</a></li>
+    <li><a href='/login'>Login</a></li>
+  </ul>
+</nav>
+`;
+    expect(getNavBar().trim()).toBe(expectedNavBar.trim());
   });
 })
