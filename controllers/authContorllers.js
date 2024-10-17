@@ -1,4 +1,4 @@
-const {baseHtml,getNavBarDash,getProductCardsDash,formNewProduct, getProductsHtml,formEditProduct} = require('../public/utils/index')
+const {baseHtml,getNavBarDash,getProductCardsDash,formNewProduct, getProductsHtml,getEditDeleteControls,formEditProduct} = require('../public/utils/index')
 const Product = require('../models/Product')
 const path = require('path')
 
@@ -35,19 +35,7 @@ const authController = {
           }
           
       },
-      async showProductByCategoryFromDashboard(req, res) {
-        const path = req.path;
-        const category = path.split('/dashboard/').join(''); // Cambia la ruta según sea necesario
       
-        try {
-            const products = await Product.find({ category }); // Busca todos los productos de esa categoría
-            const html = baseHtml() + getNavBarDash() + getProductCardsDash(products) 
-            
-            res.send(html);
-        } catch (error) {
-            res.status(500).json({ message: 'Se produjo un error al intentar obtener el producto' });
-        }
-      },
       
       async createProduct(req,res){
         try{
@@ -81,25 +69,13 @@ const authController = {
          if(!products) {
             return res.status(404).json({message: 'El producto con ese Id no existe'})
          }
-         const html = baseHtml() + getNavBarDash() + getProductCardsDash([products]) +
-         `<div class="editDelete"><a href='/dashboard/${id}/edit' class="editDash">Editar</a>` +  `<button id="delete-button" class="deleteButton">Borrar</button></div>
-         <script>
-             document.getElementById('delete-button').addEventListener('click', async () => {
-                 const productId = '${id}';
-                 const response = await fetch(\`/dashboard/\${productId}/delete\`, {
-                     method: 'DELETE',
-                     headers: {
-                         'Content-Type': 'application/json'
-                     }
-                 });
-                 const dataResponse = await response.json();
-                 if (dataResponse.success) {
-                     window.location.href = '/dashboard';
-                 } else {
-                     alert(dataResponse.message);
-                 }
-             });
-         </script>`;
+         const html = [
+          baseHtml(),
+          getNavBarDash(),
+          getProductCardsDash([products]), 
+          getEditDeleteControls(id)
+      ].join('')
+        
       
          res.send(html)
         } catch (error) {
