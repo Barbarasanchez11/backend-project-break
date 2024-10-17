@@ -1,4 +1,4 @@
-const {baseHtml,getNavBarDash,getProductCardsDash,formNewProduct, getProductsHtml,getEditDeleteControls,formEditProduct} = require('../public/utils/index')
+const {baseHtml,getNavBarDash,getProductCardsDash,formNewProduct, getProductsHtml,getEditDeleteControls,formEditProduct,getPagination} = require('../public/utils/index')
 const Product = require('../models/Product')
 const path = require('path')
 
@@ -15,17 +15,22 @@ const authController = {
           res.status(500).json({message : 'Se produjo un error al intentar mostrar el producto'})
          } 
       },
-      
+         
     async showDashboard(req,res){
-        const {category} = req.query
-     
+      const { page = 1, category } = req.query; // Si page no existe se establece por defecto 1
+      const pages = 5
         try {
-      
-          const products = await Product.find();
-          const areThereCategories = category ? products.filter(product => product.category[0] === category) : products
-          if(!products) throw new Error('No se encontraron productos')
+      const query = category ? { category: category } : {}
+
+          const totalProducts = await Product.countDocuments(query)
+
+          const totalPages = Math.ceil(totalProducts / pages)
+          const currentPage = Math.min(Math.max(1, page), totalPages)
+          const skip = (currentPage - 1) * pages 
+  
+          const paginatedProducts = await Product.find(query).skip(skip).limit(pages)
            
-          const html = baseHtml() + getNavBarDash()  + getProductsHtml(areThereCategories)
+          const html = baseHtml() + getNavBarDash()  + getProductsHtml(paginatedProducts) + getPagination(currentPage, totalPages, category)
           res.send(html);
           ; 
           } catch (error) {
@@ -68,7 +73,8 @@ const authController = {
           baseHtml(),
           getNavBarDash(),
           getProductCardsDash([products]), 
-          getEditDeleteControls(id)
+          getEditDeleteControls(id),
+          getPagination()
       ].join('')
          res.send(html)
         } catch (error) {

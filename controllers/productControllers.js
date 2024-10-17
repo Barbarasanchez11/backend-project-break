@@ -7,23 +7,18 @@ const auth = admin.auth()
 const productController = {
 
   async showProduct(req, res) {
-    const { page = 1, category } = req.query; // si page no existe se establece por defecto 1
-    const pages = 5
+    const { page = 1, category } = req.query; // Si page no existe se establece por defecto 1
+    const pages = 5;
 
     try {
-        
-        const products = await Product.find();
-        let filteredProducts = category ? products.filter(product => product.category[0] === category) : products
+        const query = category ? { category: category } : {}; 
+        const totalProducts = await Product.countDocuments(query)
+        const totalPages = Math.ceil(totalProducts / pages)
+        const currentPage = Math.min(Math.max(1, page), totalPages)
+        const skip = (currentPage - 1) * pages 
 
-        
-        const totalPages = Math.ceil(filteredProducts.length / pages) 
-        const currentPage = Math.min(Math.max(1, page), totalPages) //no puede ser menor a 0, si es 1 o más da page
-        //si Math.mat es mayor que totalPages , devolverá totalpages
-        
-        const start = (currentPage - 1) * pages//va restando para asegurar que empieza desde el inicio
-        const paginatedProducts = filteredProducts.slice(start, start + pages)//devuelve un array con 5 por página
-        //va a empezar desde start y nos va a dar pages(5 por página)
-      
+        const paginatedProducts = await Product.find(query).skip(skip).limit(pages);
+
         const html = baseHtml() + getNavBar() + getProductCards(paginatedProducts) + getPagination(currentPage, totalPages, category);
         res.send(html);
     } catch (error) {
