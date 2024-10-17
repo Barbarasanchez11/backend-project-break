@@ -41,6 +41,11 @@ const productController = {
   }
 },
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> newChanges
 /* Bonus Login*/
 
 async register(req,res){

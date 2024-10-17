@@ -66,6 +66,34 @@ function getProductsHtml(products) {
   `;
 }
 
+function generateProductHtml(product) {
+  return `
+      
+      <div class="editDelete">
+          <a href='/dashboard/${product._id}/edit' class="editDash">Editar</a> 
+          <button id="delete-button" class="deleteButton">Borrar</button>
+      </div>
+      <script>
+          document.getElementById('delete-button').addEventListener('click', async () => {
+              const productId = '${product._id}';
+              const response = await fetch(\`/dashboard/\${productId}/delete\`, {
+                  method: 'DELETE',
+                  headers: {
+                      'Content-Type': 'application/json'
+                  }
+              });
+              const dataResponse = await response.json();
+              if (dataResponse.success) {
+                  window.location.href = '/dashboard';
+              } else {
+                  alert(dataResponse.message);
+              }
+          });
+      </script>
+  `;
+}
+
+
 function getProductCardsById(products) {
   let html = '<div class="productContainer">'; 
   for (let product of products) {
@@ -99,7 +127,8 @@ function getProductCardsDash(products) {
        <p><strong>Precio: </strong>${product.price}</p>
         
       </div>
-    `;
+    `
+    ;
   }
   html += '</div>'; 
   return html;
@@ -139,7 +168,27 @@ function getNavBarDash() {
 </script>
 `;
 }
-
+function getEditDeleteControls(productId) {
+  return `
+      <div class="editDelete">
+          <a href='/dashboard/${productId}/edit' class="editDash">Editar</a>
+          <button id="delete-button" class="deleteButton">Borrar</button>
+      </div>
+      <script>
+          document.getElementById('delete-button').addEventListener('click', async () => {
+              const response = await fetch('/dashboard/${productId}/delete', {
+                  method: 'DELETE',
+                  headers: { 'Content-Type': 'application/json' }
+              });
+              const dataResponse = await response.json();
+              if (dataResponse.success) {
+                  window.location.href = '/dashboard';
+              } else {
+                  alert(dataResponse.message);
+              }
+          });
+      </script>`;
+}
 
 
  
@@ -351,5 +400,5 @@ function deleteProd(product) {
 
 
 
-module.exports =  {baseHtml,getNavBar,getProductCardsById,getProductsHtml,getNavBarDash,getProductCards,getProductCardsDash,formNewProduct,formEditProduct,deleteProd}
+module.exports =  {baseHtml,getNavBar,getProductCardsById,getProductsHtml,generateProductHtml,getEditDeleteControls,getNavBarDash,getProductCards,getProductCardsDash,formNewProduct,formEditProduct,deleteProd}
 
