@@ -1,11 +1,30 @@
 const app = require('../app')
 const Product = require('../models/Product')
-const{index} =require('../public/utils/index')
+const{baseHtml} =require('../public/utils/index')
+const mongoose = require('mongoose')
 
-describe('GET /products - debe devolver todos los productos', () => {
-    it('debe devolver todos los productos', async () => {
-      const response = await request(app).get('/products');
-      expect(response.statusCode).toBe(200);
-      
-    });
+
+afterAll(async () => {
+  await mongoose.connection.close();
+});
+describe('Utilities', () => {
+  test('baseHtml devuelve el HTML esperado', () => {
+    const expected = `
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda de Productos</title>
+    <link rel="stylesheet" href="/styles/style.css">
+</head>
+<body>
+    <header>
+        
+    </header>
+</body>
+</html>
+`;
+    expect(baseHtml().trim()).toBe(expected.trim());
   });
+})
