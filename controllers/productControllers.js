@@ -7,27 +7,31 @@ const auth = admin.auth()
 const productController = {
 
   async showProduct(req, res) {
-    const { category, page = 1 } = req.query; // Obtén la página desde los parámetros de la consulta
-    const limit = 5; // Definimos el límite de productos por página
-    const skip = (page - 1) * limit; // Calculamos cuántos productos saltar
+    const { page = 1, category } = req.query; // si page no existe se establece por defecto 1
+    const pages = 5
 
     try {
-        const query = category ? { 'category.0': category } : {}; // Si hay categoría, agrega filtro
-        const products = await Product.find(query).skip(skip).limit(limit); // Obtenemos productos paginados
-        const totalProducts = await Product.countDocuments(query); // Contamos el total de productos que coinciden con la consulta
+        
+        const products = await Product.find();
+        let filteredProducts = category ? products.filter(product => product.category[0] === category) : products
 
-        if (products.length === 0) throw new Error('No se encontraron productos');
-
-        const totalPages = Math.ceil(totalProducts / limit); // Calculamos el total de páginas
-        const paginationHtml = getPagination(page, totalPages, category); // Obtenemos los controles de paginación
-
-        const html = baseHtml() + getNavBar() + getProductCards(products) + paginationHtml;
+        
+        const totalPages = Math.ceil(filteredProducts.length / pages) 
+        const currentPage = Math.min(Math.max(1, page), totalPages) //no puede ser menor a 0, si es 1 o más da page
+        //si Math.mat es mayor que totalPages , devolverá totalpages
+        
+        const start = (currentPage - 1) * pages//va restando para asegurar que empieza desde el inicio
+        const paginatedProducts = filteredProducts.slice(start, start + pages)//devuelve un array con 5 por página
+        //va a empezar desde start y nos va a dar pages(5 por página)
+      
+        const html = baseHtml() + getNavBar() + getProductCards(paginatedProducts) + getPagination(currentPage, totalPages, category);
         res.send(html);
     } catch (error) {
         console.error(error);
         res.status(500).send('Error al obtener los productos');
     }
 },
+  
 
   
  async showProductById(req,res){

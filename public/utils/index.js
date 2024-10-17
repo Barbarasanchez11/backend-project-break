@@ -53,30 +53,25 @@ function getProductCards(products) {
 }
 
 function getPagination(currentPage, totalPages, category) {
-  let paginationHtml = '';
+  if (totalPages <= 1) // si es 1 o mens no se necesita y devuelve ''
+    return ''
+
+  let paginationHtml = '<div class="pagination">'
   
-  if (totalPages > 1) { // Solo mostrar si hay más de una página
-      paginationHtml += '<div class="pagination">';
 
-      if (currentPage > 1) {
-          paginationHtml += `<a href="?page=${currentPage - 1}&category=${category}">« Anterior</a>`;
-      }
+  if (currentPage > 1) {
+    paginationHtml += `<a href="?page=${currentPage - 1}&category=${category || ''}">« Anterior</a>`
+  }//si la actual es mayor a 1 da el enlace para ir a la anterior, si hay categoria se usa, si no devuevle ''
 
-      for (let i = 1; i <= totalPages; i++) {
-          if (i === currentPage) {
-              paginationHtml += `<strong>${i}</strong>`;
-          } else {
-              paginationHtml += `<a href="?page=${i}&category=${category}">${i}</a>`;
-          }
-      }
+  for (let i = 1; i <= totalPages; i++) {
+    paginationHtml += (i === currentPage) ? `${i}` : `<a href="?page=${i}&category=${category || ''}">${i}</a>`
+  }//si la pag actual es una muestar el nº, si no el href que puede ir a categroria si tambien estamos dentro de ella
 
-      if (currentPage < totalPages) {
-          paginationHtml += `<a href="?page=${currentPage + 1}&category=${category}">Siguiente »</a>`;
-      }
+  if (currentPage < totalPages) {
+    paginationHtml += `<a href="?page=${currentPage + 1}&category=${category || ''}">Siguiente »</a>`
+  }//si la pag actual es menos que el total de páginas se crea un enlace para ir a la siguiente
 
-      paginationHtml += '</div>';
-  }
-
+  paginationHtml += '</div>'
   return paginationHtml;
 }
 
