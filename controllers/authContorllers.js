@@ -35,12 +35,7 @@ const authController = {
           }
           
       },
-<<<<<<< HEAD
-   
-=======
-      
-      
->>>>>>> newChanges
+
       async createProduct(req,res){
         try{
             const {name, description, image, category, flavour, size, price, stock} = req.body 
