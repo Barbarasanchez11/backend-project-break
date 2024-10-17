@@ -59,12 +59,13 @@ async login (req,res) {
 
 async loginUser(req,res){
   const {idToken} = req.body
- 
+
   try {
-       await auth.verifyIdToken(idToken)
+
+      await auth.verifyIdToken(idToken)
       res.cookie('token', idToken, {httpOnly: true, secure: false})
       res.json({success : true})
-     
+
   } catch (error) {
       console.log(`Error ${error}`)
       res.redirect('/register');
@@ -74,8 +75,14 @@ async loginUser(req,res){
 async logout(req,res){
   res.clearCookie('token')
   res.redirect('/products')
+},
+
+
+
+async logout(req,res){
+  res.clearCookie('token')
+  res.redirect('/products')
 }
 
 }
-
-module.exports = productController;
+module.exports= productController

@@ -16,8 +16,7 @@ const authController = {
          } 
       },
       
-      
-      async showDashboard(req,res){
+    async showDashboard(req,res){
         const {category} = req.query
      
         try {
@@ -36,7 +35,7 @@ const authController = {
           
       },
 
-      async createProduct(req,res){
+    async createProduct(req,res){
         try{
             const {name, description, image, category, flavour, size, price, stock} = req.body 
             const createItem = new Product({
@@ -50,18 +49,15 @@ const authController = {
              stock
             })
             await createItem.save()//guardamos el prod. en la BBDD
-            res.redirect('/dashboard');
-           
+            res.redirect('/dashboard');     
         } 
         catch(error){
           console.error(error)
-            res.status(500).json({message : 'Se produjo un error al intentar crear el producto'})
-      
-            
+            res.status(500).json({message : 'Se produjo un error al intentar crear el producto'})      
         }
       },
       
-      async showDashboardById(req,res) {
+    async showDashboardById(req,res) {
         try {
          const id = req.params.productId
          const products = await Product.findById(id)
@@ -74,17 +70,14 @@ const authController = {
           getProductCardsDash([products]), 
           getEditDeleteControls(id)
       ].join('')
-        
-      
          res.send(html)
         } catch (error) {
             console.error(error)
-            res.status(500).json({message : 'Se produjo un error al intentar obtener el producto'})
-            
+            res.status(500).json({message : 'Se produjo un error al intentar obtener el producto'}) 
         }
       },
       
-      async showEditProduct(req,res){
+    async showEditProduct(req,res){
         try {
           const productId =req.params.productId  
           const products = await Product.findById(productId)  
@@ -92,15 +85,14 @@ const authController = {
            return res.status(404).json({message: 'El producto con ese Id no existe'})
           }
           const html = baseHtml()+ getNavBarDash() + formEditProduct(req,products) 
-          res.send(html)
-          
+          res.send(html)      
       } catch (error) {
           console.log(error)
           res.status(500).json({message : 'Se produjo un error al intentar cargar el formulario'})
       }
       },
       
-      async updateProduct(req,res){
+    async updateProduct(req,res){
         try {
           const id = req.params.productId;
           const body = req.body;
@@ -116,9 +108,7 @@ const authController = {
       }
       },
       
-      
-      
-      async deleteProduct(req, res) {
+    async deleteProduct(req, res) {
         
         const productId = req.params.productId;
         console.log(productId)
@@ -131,18 +121,12 @@ const authController = {
             }
             
                 await Product.findByIdAndDelete(productId);
-                res.status(200).json({ success: 'Producto eliminado correctamente' }); 
-            
-            
-            
+                res.status(200).json({ success: 'Producto eliminado correctamente' });  
         } catch (error) {
             console.error(error); 
             res.status(500).json({ message: 'Se produjo un error al intentar borrar el producto' });
         }
-      },
-      
-      
-
+      },    
 }
 
 module.exports = authController

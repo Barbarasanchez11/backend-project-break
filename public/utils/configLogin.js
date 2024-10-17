@@ -1,3 +1,4 @@
+
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.1.0/firebase-app.js';
 import { getAuth, signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/9.1.0/firebase-auth.js'
 
@@ -13,6 +14,7 @@ const firebaseConfig = {
 
   const app = initializeApp(firebaseConfig)
   const auth = getAuth(app)
+  
 
  
 
@@ -24,14 +26,12 @@ const firebaseConfig = {
     if (!email || !password) {
       messageContainer.textContent = 'Credenciales erróneas'; 
       return; // Termina la función si falta información
-  }
-    
+  } 
     try {
 
       const email = document.getElementById('email').value
       const password = document.getElementById('password').value
 
-     
       const userCredential = await signInWithEmailAndPassword(auth,email,password)
       const idToken = await userCredential.user.getIdToken()
 
@@ -69,3 +69,4 @@ const firebaseConfig = {
         console.error('Error al cerrar sesión:', error);
     }
 };
+
