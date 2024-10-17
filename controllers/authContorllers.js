@@ -111,8 +111,7 @@ const authController = {
     async deleteProduct(req, res) {
         
         const productId = req.params.productId;
-        console.log(productId)
-      
+       
         try {
             const product = await Product.findById(productId);
       

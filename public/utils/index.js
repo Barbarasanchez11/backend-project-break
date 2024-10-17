@@ -52,6 +52,34 @@ function getProductCards(products) {
   return html;
 }
 
+function getPagination(currentPage, totalPages, category) {
+  let paginationHtml = '';
+  
+  if (totalPages > 1) { // Solo mostrar si hay más de una página
+      paginationHtml += '<div class="pagination">';
+
+      if (currentPage > 1) {
+          paginationHtml += `<a href="?page=${currentPage - 1}&category=${category}">« Anterior</a>`;
+      }
+
+      for (let i = 1; i <= totalPages; i++) {
+          if (i === currentPage) {
+              paginationHtml += `<strong>${i}</strong>`;
+          } else {
+              paginationHtml += `<a href="?page=${i}&category=${category}">${i}</a>`;
+          }
+      }
+
+      if (currentPage < totalPages) {
+          paginationHtml += `<a href="?page=${currentPage + 1}&category=${category}">Siguiente »</a>`;
+      }
+
+      paginationHtml += '</div>';
+  }
+
+  return paginationHtml;
+}
+
 function getProductsHtml(products) {
   return `
     <div class="productContainer">
@@ -65,34 +93,6 @@ function getProductsHtml(products) {
     </div>
   `;
 }
-
-/*function generateProductHtml(product) {
-  return `
-      
-      <div class="editDelete">
-          <a href='/dashboard/${product._id}/edit' class="editDash">Editar</a> 
-          <button id="delete-button" class="deleteButton">Borrar</button>
-      </div>
-      <script>
-          document.getElementById('delete-button').addEventListener('click', async () => {
-              const productId = '${product._id}';
-              const response = await fetch(\`/dashboard/\${productId}/delete\`, {
-                  method: 'DELETE',
-                  headers: {
-                      'Content-Type': 'application/json'
-                  }
-              });
-              const dataResponse = await response.json();
-              if (dataResponse.success) {
-                  window.location.href = '/dashboard';
-              } else {
-                  alert(dataResponse.message);
-              }
-          });
-      </script>
-  `;
-}
-*/
 
 function getProductCardsById(products) {
   let html = '<div class="productContainer">'; 
@@ -133,8 +133,6 @@ function getProductCardsDash(products) {
   html += '</div>'; 
   return html;
 }
-
-
 
 function getNavBarDash() {
   return `
@@ -190,8 +188,6 @@ function getEditDeleteControls(productId) {
       </script>`;
 }
 
-
- 
 function formNewProduct(){
   const formNewProduct =  
   `
@@ -358,10 +354,7 @@ function formEditProduct(req, product) {
   
   return htmlEdit;
 }
-
-
-
-  
+ 
 function deleteProd(product) {
   const htmlDelete = `
   <body>
@@ -400,5 +393,5 @@ function deleteProd(product) {
 
 
 
-module.exports =  {baseHtml,getNavBar,getProductCardsById,getProductsHtml,/*generateProductHtml*/getEditDeleteControls,getNavBarDash,getProductCards,getProductCardsDash,formNewProduct,formEditProduct,deleteProd}
+module.exports =  {baseHtml,getNavBar,getProductCardsById,getProductsHtml,getEditDeleteControls,getNavBarDash,getProductCards,getProductCardsDash,formNewProduct,formEditProduct,deleteProd,getPagination}
 
