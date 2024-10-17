@@ -4,21 +4,16 @@ const path=require('path')
 const admin = require('firebase-admin')
 const auth = admin.auth()
 
-
-
 const productController = {
 
   async showProduct(req, res) {
     const {category} = req.query
-   
-    
+
     try {
       const products =  await Product.find() 
       const areThereCategories = category ? products.filter(product => product.category[0] === category) : products
       if(!products) throw new Error('No se encontraron productos')
       const html = baseHtml() + getNavBar() + getProductCards(areThereCategories) 
-     
-      
       res.send(html);
     } catch (error) {
       console.error(error);
@@ -41,11 +36,6 @@ const productController = {
   }
 },
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> newChanges
 /* Bonus Login*/
 
 async register(req,res){
@@ -71,8 +61,7 @@ async loginUser(req,res){
   const {idToken} = req.body
  
   try {
-     
-      await auth.verifyIdToken(idToken)
+       await auth.verifyIdToken(idToken)
       res.cookie('token', idToken, {httpOnly: true, secure: false})
       res.json({success : true})
      
