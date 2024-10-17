@@ -17,7 +17,7 @@ const productController = {
       const areThereCategories = category ? products.filter(product => product.category[0] === category) : products
       if(!products) throw new Error('No se encontraron productos')
       const html = baseHtml() + getNavBar() + getProductCards(areThereCategories) 
-     
+     console.log(html)
       
       res.send(html);
     } catch (error) {

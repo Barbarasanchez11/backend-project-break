@@ -28,7 +28,7 @@ function getNavBar() {
     <li><a href='/?category=Proteinas'>Proteinas</a></li>
     <li><a href='/?category=Vitaminas'>Vitaminas</a></li>
     <li><a href='/?category=Snacks'>Snacks</a></li>
-    <li><a href='/?category=NutricionDeportiva'>Nutrición Deportiva</a></li>
+    <li><a href='/?category=NutricionDeportiva'>NutricionDeportiva</a></li>
     <li><a href='/?category=Otros'>Otros</a></li>
     <li><a href='/login'>Login</a></li>
   </ul>
@@ -282,7 +282,7 @@ function formEditProduct(req, product) {
                 <option value="Proteinas" ${product.category === 'Proteinas' ? 'selected' : ''}>Proteinas</option>
                 <option value="Vitaminas" ${product.category === 'Vitaminas' ? 'selected' : ''}>Vitaminas</option>
                 <option value="Snacks" ${product.category === 'Snacks' ? 'selected' : ''}>Snacks</option>
-                <option value="Nutrición deportiva" ${product.category === 'Nutrición deportiva' ? 'selected' : ''}>Nutrición deportiva</option>
+                <option value="NutricionDeportiva" ${product.category === 'NutricionDeportiva' ? 'selected' : ''}>Nutrición deportiva</option>
                 <option value="Otros" ${product.category === 'Otros' ? 'selected' : ''}>Otros</option>
             </select>
         </div>
