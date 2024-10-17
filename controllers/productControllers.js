@@ -1,5 +1,5 @@
 const Product = require('../models/Product')
-const {baseHtml, getNavBar, getProductCards,getProductCardsById,getPagination} = require('../public/utils/index')
+const {baseHtml, getNavBar, getProductCards,getProductCardsById} = require('../public/utils/index')
 const path=require('path')
 const admin = require('firebase-admin')
 const auth = admin.auth()
@@ -7,25 +7,19 @@ const auth = admin.auth()
 const productController = {
 
   async showProduct(req, res) {
-    const { page = 1, category } = req.query; // Si page no existe se establece por defecto 1
-    const pages = 5;
+    const {category} = req.query
 
     try {
-        const query = category ? { category: category } : {}; 
-        const totalProducts = await Product.countDocuments(query)
-        const totalPages = Math.ceil(totalProducts / pages)
-        const currentPage = Math.min(Math.max(1, page), totalPages)
-        const skip = (currentPage - 1) * pages 
-
-        const paginatedProducts = await Product.find(query).skip(skip).limit(pages);
-
-        const html = baseHtml() + getNavBar() + getProductCards(paginatedProducts) + getPagination(currentPage, totalPages, category);
-        res.send(html);
+      const products =  await Product.find() 
+      const areThereCategories = category ? products.filter(product => product.category[0] === category) : products
+      if(!products) throw new Error('No se encontraron productos')
+      const html = baseHtml() + getNavBar() + getProductCards(areThereCategories) 
+      res.send(html);
     } catch (error) {
-        console.error(error);
-        res.status(500).send('Error al obtener los productos');
+      console.error(error);
+      res.status(500).send('Error al obtener los productos');
     }
-},
+  },
   
 
   

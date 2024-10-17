@@ -1,4 +1,4 @@
-const {baseHtml,getNavBarDash,getProductCardsDash,formNewProduct, getProductsHtml,getEditDeleteControls,formEditProduct,getPagination} = require('../public/utils/index')
+const {baseHtml,getNavBarDash,getProductCardsDash,formNewProduct, getProductsHtml,getEditDeleteControls,formEditProduct} = require('../public/utils/index')
 const Product = require('../models/Product')
 const path = require('path')
 
@@ -16,38 +16,35 @@ const authController = {
          } 
       },
          
-    async showDashboard(req,res){
-      const { page = 1, category } = req.query; // Si page no existe se establece por defecto 1
-      const pages = 5
+      async showDashboard(req,res){
+        const {category} = req.query
+
         try {
-      const query = category ? { category: category } : {}
 
-          const totalProducts = await Product.countDocuments(query)
+          const products = await Product.find();
+          const areThereCategories = category ? products.filter(product => product.category[0] === category) : products
+          if(!products) throw new Error('No se encontraron productos')
 
-          const totalPages = Math.ceil(totalProducts / pages)
-          const currentPage = Math.min(Math.max(1, page), totalPages)
-          const skip = (currentPage - 1) * pages 
-  
-          const paginatedProducts = await Product.find(query).skip(skip).limit(pages)
-           
-          const html = baseHtml() + getNavBarDash()  + getProductsHtml(paginatedProducts) + getPagination(currentPage, totalPages, category)
+          const html = baseHtml() + getNavBarDash()  + getProductsHtml(areThereCategories)
           res.send(html);
           ; 
           } catch (error) {
           console.error(error)
           res.status(500).send('Error al obtener los productos') 
           }
-          
+
       },
 
     async createProduct(req,res){
         try{
             const {name, description, image, category, flavour, size, price, stock} = req.body 
+            const standardizedCategory = category.replace(/ /g, '').toLowerCase()
+
             const createItem = new Product({
              name,
              description,
              image,
-             category,
+             category: [standardizedCategory],
              flavour,
              size,
              price,
