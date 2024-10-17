@@ -19,7 +19,7 @@ const authController = {
       
       async showDashboard(req,res){
         const {category} = req.query
-      console.log(category)
+     
         try {
       
           const products = await Product.find();

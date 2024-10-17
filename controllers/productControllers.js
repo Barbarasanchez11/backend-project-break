@@ -10,7 +10,7 @@ const productController = {
 
   async showProduct(req, res) {
     const {category} = req.query
-    console.log(category)
+   
     
     try {
       const products =  await Product.find() 
