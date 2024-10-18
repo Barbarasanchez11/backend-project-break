@@ -4,12 +4,12 @@ Se trata de una tienda de suplementos deportivos de origen vegetal para pontenci
 
 Índice
 
--[Funcionamiento]
--[Tecnologías]
--[Instalación]
--[Inicialización]
--[Endpoints]
--[Despliegue]
+-[Funcionamiento](#Funcionamiento)
+-[Tecnologías](#Tecnologías)
+-[Instalación](#Instalación)
+-[Inicialización](#Inicialización)
+-[Endpoints](#Endpoints)
+-[Despliegue](#Despliegue)
 
 #Funcionamiento
 

@@ -20,9 +20,7 @@ const productController = {
         const skip = (currentPage - 1) * pages; 
 
         
-        const paginatedProducts = await Product.find(query)
-            .skip(skip)
-            .limit(pages);
+        const paginatedProducts = await Product.find(query).skip(skip).limit(pages);
 
         
         const html = baseHtml() + getNavBar() + getProductCards(paginatedProducts) + getPagination(currentPage, totalPages, category);
