@@ -38,11 +38,12 @@ const apiProducts = {
     async updateById (req,res){
         const {productId} = req.params
         const body = req.body
+        console.log(productId); 
         
        
         try {
             const products = await Product.findByIdAndUpdate(productId, {...body}, { new: true })
-            console.log(products)
+            
             res.status(200).json(products)
         } catch (error) {
             res.status(500).send(error)

@@ -78,7 +78,7 @@ Endpoints desde la parte del usuario:
 -GET /login: Devuelve el formulario de inicio de sesión.
 -POST /login: Inicio sesión de un usuario.
 
-Endpoints desde la parte del Admin:
+#Endpoints desde la parte del Admin:
 
 -GET /dashboard: Devuelve todos los productos.
 -GET /dashboard/new: Devuelve un formulario para añadir un producto nuevo a la base de datos.
@@ -87,6 +87,8 @@ Endpoints desde la parte del Admin:
 -PUT /dashboard/:productId: Actualiza un producto en la base de datos.
 -GET /dashboard/:productId/edit: Devuelve un formulario para editar un producto nuevo a la base de datos.
 -DELETE /dashboard/:productId/delete: Elimina un producto de la base de datos.
+
+#Endpoints API
 
 #Despliegue
 

@@ -61,8 +61,9 @@ async registerUser (req,res){
       await auth.createUser({ email, password });
       res.redirect('/login');
   } catch (error) {
-      console.error(`Error interno: ${error.message}`);
-      res.redirect('/register');
+      
+      
+      res.status(409).json({message:'The email address is already in use by another account'});
   }
 },
 

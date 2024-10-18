@@ -10,12 +10,13 @@
     <h1 class="registerTitle">Register</h1>
     <div class="registerContainer">
       <form action="/register"  class="registerForm" method="POST">
-        <input type="email" name="email"  class="emailRegister" placeholder="Introduce tu email" required>
-        <input type="password" name="password" class="passwordRegister"  placeholder="Introduce tu contraseña" required>
-        <button class="registerButton" type="submit">Regístrate</button>
+        <input type="email" name="email"  class="emailRegister"  id="emailRegister" placeholder="Introduce tu email" required>
+        <input type="password" name="password" class="passwordRegister" id="passwordRegister" placeholder="Introduce tu contraseña" required>
+        <button id="registerButton" class="registerButton" type="submit">Regístrate</button>
+        <div id="mensaje"></div>
       </form>
     </div>
-    
+  <script type="module" src="../utils/configRegister.js"></script>
 </body>
 </html>
 
