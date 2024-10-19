@@ -90,6 +90,12 @@ Endpoints desde la parte del usuario:
 
 #Endpoints API
 
+-POST /products: Crea un nuevo producto.
+-GET /products: Devuelve todos los productos.
+-GET /products/:productId: Devuelve los detalles de un producto.
+-PUT products/edit/:productId: Actualiza un producto.
+-DELETE products/delete/:productId: Elimina un producto.
+
 #Despliegue
 
 Es necesario cargar las varieables de entorno requeridas antes de desplegar la aplicación.

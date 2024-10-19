@@ -1,6 +1,6 @@
 
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.1.0/firebase-app.js';
-import { getAuth, signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/9.1.0/firebase-auth.js'
+import { getAuth } from 'https://www.gstatic.com/firebasejs/9.1.0/firebase-auth.js'
 
 const firebaseConfig = {
     apiKey: "AIzaSyAypshHuJUIM0vvjK-0AAGSvOy22OoVUyo",
@@ -15,10 +15,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig)
 const auth = getAuth(app)
   
-
- 
-
-  const login = async(event) => {
+  const register = async(event) => {
     event.preventDefault()//al tener un botón submit es necesario
     const mensaje = document.getElementById('mensaje')
     mensaje.textContent = ''
@@ -30,12 +27,6 @@ const auth = getAuth(app)
       return; // Termina la función si falta información
     } 
     try {
-
-      
-
-    //   const userCredential = await signInWithEmailAndPassword(auth,email,password)
-    //   const idToken = await userCredential.user.getIdToken()
-
       const response = await fetch('/register', {
         method: 'POST',
         headers: {
@@ -46,14 +37,12 @@ const auth = getAuth(app)
      
     const data = await response.json()
     if (data.message) mensaje.innerHTML = '<h2> Usuario ya existe, por favor ve a <a href="/login">LOGIN</a> </h2>'
-    //   if(data.success) {
-    //     window.location.href = '/dashboard'
-    //   }
+
     } catch (error) {
       console.log(`No se ha podido inciar sesión${error.mensaje}`)
       window.location.href = '/register';
     }
   }
 
-  document.getElementById('registerButton').addEventListener('click', login)
+  document.getElementById('registerButton').addEventListener('click', register)
 
