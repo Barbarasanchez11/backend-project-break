@@ -308,6 +308,13 @@ function formEditProduct(req, product) {
     <script>
       document.getElementById('save-button').addEventListener('click', async (event) => {
           event.preventDefault();
+
+          const category = document.getElementById('category').value;
+
+           if (category === '') {
+          alert('Por favor, selecciona una categoría.')
+          return; 
+      }
           const productId = '${product._id}'; 
           const data = { 
             name: document.getElementById('name').value,
@@ -347,12 +354,12 @@ function formEditProduct(req, product) {
 function deleteProd(product) {
   const htmlDelete = `
   <body>
-      <h1>Eliminar producto</h1>
-      <p>¿Estás seguro de que deseas eliminar el producto <strong>${product.name}</strong>?</p>
+      
       <button id="delete-button">Borrar</button>
       <a href="/dashboard">Cancelar</a>
       <script>
         document.getElementById('delete-button').addEventListener('click', async () => {
+
             const productId = '${product._id}';
   
             try {
@@ -378,6 +385,16 @@ function deleteProd(product) {
   `;
   return htmlDelete;
 }
-module.exports =  {baseHtml,getNavBar,getProductCardsById,getProductsHtml,getEditDeleteControls,getNavBarDash,getProductCards,getProductCardsDash,formNewProduct,formEditProduct,deleteProd,getPagination}
+
+function footer() {
+  const footer = `
+  <div class='footer'>
+    <img src="../image/GitHub.webp"></img>
+    <a href='https://github.com/Barbarasanchez11/backend-project-break'> by Bárbara Sánchez</a>
+  </div>`
+
+  return footer
+}
+module.exports =  {baseHtml,getNavBar,getProductCardsById,getProductsHtml,getEditDeleteControls,getNavBarDash,getProductCards,getProductCardsDash,formNewProduct,formEditProduct,deleteProd,getPagination,footer}
 
 

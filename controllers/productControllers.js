@@ -1,5 +1,5 @@
 const Product = require('../models/Product')
-const {baseHtml, getNavBar, getProductCards,getProductCardsById,getPagination} = require('../public/utils/index')
+const {baseHtml, getNavBar, getProductCards,getProductCardsById,getPagination,footer} = require('../public/utils/index')
 const path=require('path')
 const admin = require('firebase-admin')
 const auth = admin.auth()
@@ -23,7 +23,7 @@ const productController = {
         const paginatedProducts = await Product.find(query).skip(skip).limit(pages);
 
         
-        const html = baseHtml() + getNavBar() + getProductCards(paginatedProducts) + getPagination(currentPage, totalPages, category);
+        const html = baseHtml() + getNavBar() + getProductCards(paginatedProducts) + getPagination(currentPage, totalPages, category) +footer()
         res.send(html);
     } catch (error) {
         console.error(error);

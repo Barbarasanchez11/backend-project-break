@@ -463,7 +463,27 @@ input[type="text"], input[type="number"], textarea, select {
   .pagination a:hover {
 	text-decoration: underline; 
   }
+/*footer*/
 
+.footer {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin: 16px;
+	margin-top: 430px;
+	
+
+}
+
+.footer img {
+	width: 26px;
+	height: 26px;
+}
+
+.footer a {
+	text-decoration: none;
+	color:rgb(68, 132, 68)
+}
 
 /*Responsive*/
 
