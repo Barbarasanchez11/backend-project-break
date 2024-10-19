@@ -236,7 +236,16 @@ nav ul li a{
     cursor: pointer; 
 }
 
+.mensajeRegister {
+	display:flex;
+	padding: 10px;
+	margin-top: 16px;
+}
 
+.mensajeRegister a {
+	text-decoration: none;
+	color:rgb(68, 132, 68); 
+}
 /*new product*/
 
 .titleNew {
@@ -431,6 +440,31 @@ input[type="text"], input[type="number"], textarea, select {
     margin-top: 20px;
 }
 
+
+/*Pagination*/
+
+.pagination {
+	position: fixed; 
+	bottom: 10px; 
+	right: 10px; 
+	
+	
+	padding: 10px; 
+	border-radius: 5px; 
+	
+  }
+  
+  .pagination a {
+	color: rgb(68, 132, 68); 
+	text-decoration: none; 
+	margin: 0 5px; 
+  }
+  
+  .pagination a:hover {
+	text-decoration: underline; 
+  }
+
+
 /*Responsive*/
 
 @media (max-width: 600px) {
@@ -462,25 +496,10 @@ input[type="text"], input[type="number"], textarea, select {
         width: 100%; 
         max-width: 200px; 
     }
+	.pagination {
+        position: static; 
+        margin-top: 20px;
+        bottom: 0; 
+    }
 }
 
-.pagination {
-	position: fixed; 
-	bottom: 10px; 
-	right: 10px; 
-	
-	
-	padding: 10px; 
-	border-radius: 5px; 
-	
-  }
-  
-  .pagination a {
-	color: rgb(68, 132, 68); 
-	text-decoration: none; 
-	margin: 0 5px; 
-  }
-  
-  .pagination a:hover {
-	text-decoration: underline; 
-  }

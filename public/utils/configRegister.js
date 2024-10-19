@@ -45,7 +45,7 @@ const auth = getAuth(app)
       })
      
     const data = await response.json()
-    if (data.message) mensaje.innerHTML = '<h2> USUARIO YA EXISTE POR FAVOR VE AL <a href="/login">LOGIN</a> </h2>'
+    if (data.message) mensaje.innerHTML = '<h2> Usuario ya existe, por favor ve a <a href="/login">LOGIN</a> </h2>'
     //   if(data.success) {
     //     window.location.href = '/dashboard'
     //   }
