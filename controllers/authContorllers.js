@@ -1,4 +1,4 @@
-const {baseHtml,getNavBarDash,getProductCardsDash,formNewProduct, getProductsHtml,getEditDeleteControls,formEditProduct,getPagination} = require('../public/utils/index')
+const {baseHtml,getNavBarDash,getProductCardsDash,formNewProduct, getProductsHtml,getEditDeleteControls,formEditProduct,getPagination,footer} = require('../public/utils/index')
 const Product = require('../models/Product')
 const path = require('path')
 
@@ -7,7 +7,7 @@ const path = require('path')
 const authController = {
     async showNewProduct(req,res){
         try {
-          const html =  baseHtml() + getNavBarDash() + formNewProduct() 
+          const html =  baseHtml() + getNavBarDash() + formNewProduct() +footer()
           res.send(html)
           
          } catch (error) {
@@ -36,7 +36,7 @@ const authController = {
                 .limit(pages);
     
             
-            const html = baseHtml() + getNavBarDash() + getProductsHtml(paginatedProducts) + getPagination(currentPage, totalPages, category);
+            const html = baseHtml() + getNavBarDash() + getProductsHtml(paginatedProducts) + getPagination(currentPage, totalPages, category) +footer()
             res.send(html);
         } catch (error) {
             console.error(error);
@@ -79,8 +79,7 @@ const authController = {
           baseHtml(),
           getNavBarDash(),
           getProductCardsDash([products]), 
-          getEditDeleteControls(id),
-          
+          getEditDeleteControls(id),    
       ].join('')
          res.send(html)
         } catch (error) {

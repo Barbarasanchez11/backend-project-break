@@ -42,7 +42,7 @@ const productController = {
         if(!products) {
             return res.status(404).json('Producto no encontrado')
         }
-        const html = baseHtml() + getNavBar() + getProductCardsById([products]) 
+        const html = baseHtml() + getNavBar() + getProductCardsById([products]) +footer()
         res.send(html)
     }catch (error) {
       res.status(500).json({message : 'Se produjo un error al intentar obtener el producto'})
