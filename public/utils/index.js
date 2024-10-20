@@ -388,10 +388,10 @@ function deleteProd(product) {
 
 function footer() {
   const footer = `
-  <div class='footer'>
+  <footer class='footer'>
     <img src="../image/GitHub.webp"></img>
     <a href='https://github.com/Barbarasanchez11/backend-project-break'> by Bárbara Sánchez</a>
-  </div>`
+  </footer>`
 
   return footer
 }
